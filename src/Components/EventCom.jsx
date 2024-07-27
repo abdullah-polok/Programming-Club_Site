@@ -3,7 +3,7 @@ import CalenderCom from "./CalenderCom";
 import event from "../assets/images/Events-pana.png";
 const EventCom = () => {
   return (
-    <div className="mt-36">
+    <div className="mt-36 h-96 mb-36">
       <div className="content-title">
         <h1 className=" text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
           Weekly events

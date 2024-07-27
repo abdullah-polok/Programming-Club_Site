@@ -6,7 +6,7 @@ const Banner = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4  items-center bg-indigo-50 px-4 rounded-md">
       <div>
-        <h1 className="text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
+        <h1 className="text-xl md:text-2xl lg:text-4xl text-[#7c8deb]">
           <span>
             <Typewriter
               words={[

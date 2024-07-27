@@ -9,7 +9,7 @@ import { useEffect } from "react";
 const Main = () => {
   useEffect(() => {
     AOS.init({
-      duration: 3000, // animation duration in milliseconds
+      duration: 1000, // animation duration in milliseconds
     });
   }, []);
   return (
