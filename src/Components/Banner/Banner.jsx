@@ -1,42 +1,38 @@
 import React from "react";
-import AwesomeSlider from "react-awesome-slider";
-import withAutoplay from "react-awesome-slider/dist/autoplay";
-import "react-awesome-slider/dist/styles.css";
-import b1 from "../../assets/images/FtxoW4YWYAAQQIb.jpg";
-import b2 from "../../assets/images/Google-Hashcode-Competition-UKH-1-1024x683.jpg";
-import b3 from "../../assets/images/Google-Hashcode-Competition-UKH-10-1024x683.jpg";
-import b4 from "../../assets/images/Google-Hashcode-Competition-UKH-7-1024x683.jpg";
-
+import banner from "../../assets/images/banner.png";
+import { Typewriter } from "react-simple-typewriter";
+import JoinButton from "../JoinButton";
 const Banner = () => {
   return (
-    <div>
-      <div className="carousel carousel-auto w-full">
-        <div id="item1" className="carousel-item w-full">
-          <img src={b1} className="w-full" />
-        </div>
-        <div id="item2" className="carousel-item w-full">
-          <img src={b2} className="w-full" />
-        </div>
-        <div id="item3" className="carousel-item w-full">
-          <img src={b3} className="w-full" />
-        </div>
-        <div id="item4" className="carousel-item w-full">
-          <img src={b4} className="w-full" />
-        </div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4  items-center bg-indigo-50 px-4 rounded-md">
+      <div>
+        <h1 className="text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
+          <span>
+            <Typewriter
+              words={[
+                "Code. Collaborate. Conquer",
+                "Unlock Your Coding Potential",
+                "Empower Your Tech Journey",
+                "Learn, build, and grow with us",
+              ]}
+              loop={0}
+              cursor
+              cursorStyle="_"
+              typeSpeed={50}
+              deleteSpeed={50}
+              delaySpeed={1000}
+            ></Typewriter>
+          </span>
+        </h1>
+        <p className="mt-5">
+          Become part of our programming club to learn new skills, work on
+          exciting projects, and connect with a vibrant community of coders.
+          Join us and take your passion for technology to new heights!
+        </p>
+        <JoinButton></JoinButton>
       </div>
-      <div className="flex w-full justify-center gap-2 py-2">
-        <a href="#item1" className="btn btn-xs">
-          1
-        </a>
-        <a href="#item2" className="btn btn-xs">
-          2
-        </a>
-        <a href="#item3" className="btn btn-xs">
-          3
-        </a>
-        <a href="#item4" className="btn btn-xs">
-          4
-        </a>
+      <div>
+        <img src={banner} className="mx-auto w-full" />
       </div>
     </div>
   );
