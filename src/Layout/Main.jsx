@@ -5,11 +5,15 @@ import Footer from "../Components/Footer/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
-
+import "./Main.css";
 const Main = () => {
   useEffect(() => {
     AOS.init({
-      duration: 1000, // animation duration in milliseconds
+      offset: 100, // offset (in pixels) from the original trigger point
+      duration: 2000, // duration of animations in milliseconds
+      easing: "ease-out", // easing function
+      debounceDelay: 50, // delay in milliseconds
+      throttleDelay: 99, // delay in milliseconds
     });
   }, []);
   return (

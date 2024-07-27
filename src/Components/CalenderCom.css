@@ -1,7 +1,7 @@
 .calendar-container {
-  margin: 20px auto;
-  max-width: 600px;
   font-family: 'Arial, sans-serif';
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0); /* Force hardware acceleration */
 }
 
 .react-calendar {
@@ -33,22 +33,4 @@
   color: white;
 }
 
-/* Remove event-related styles */
-/* .event-date {
-  background: #7c8deb;
-  color: white;
-}
 
-.event-date:hover {
-  background: gray;
-}
-
-.event-dot {
-  width: 6px;
-  height: 6px;
-  background-color: red;
-  border-radius: 50%;
-  margin: auto;
-  position: relative;
-  top: 4px;
-} */

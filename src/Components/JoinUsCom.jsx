@@ -4,7 +4,7 @@ import JoinButton from "./JoinButton";
 import "./commonCSS.css";
 const JoinUsCom = () => {
   return (
-    <div className="mt-72 h-96 ">
+    <div className="mt-36 ">
       <div className="content-title">
         <h1 className="text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
           Join Us Today!

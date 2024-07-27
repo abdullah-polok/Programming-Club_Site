@@ -1,0 +1,4 @@
+[data-aos] {
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0); /* Force hardware acceleration */
+  }
