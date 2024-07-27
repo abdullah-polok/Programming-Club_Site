@@ -1,7 +1,12 @@
 import React from "react";
+import Admin from "../../Admin/Admin";
 
 const Events = () => {
-  return <div></div>;
+  return (
+    <>
+      <Admin></Admin>
+    </>
+  );
 };
 
 export default Events;

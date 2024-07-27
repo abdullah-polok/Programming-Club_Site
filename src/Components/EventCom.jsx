@@ -26,7 +26,7 @@ const EventCom = () => {
           <div>
             <CalenderCom></CalenderCom>
           </div>
-          <div className="rounded-lg">
+          <div className="rounded-lg mt-2">
             <h1 className="bg-[#677aeb] text-white p-4 ">Events</h1>
             <div className="bg-[#8b99ecd3] text-white p-4">
               <p>Event 1 22024-08-01</p>
