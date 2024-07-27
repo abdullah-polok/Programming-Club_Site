@@ -1,0 +1,27 @@
+.content-title {
+    color: #151414;
+    font-size: xx-large;
+    font-weight:500;
+    display: block;
+    justify-content: center;
+    padding: 3px;
+
+
+}
+
+.content-title:after {
+    margin-top: 5px;
+    content: '';
+    width: 0px;
+    height: 10px;
+    display: block;
+    background: #7c8deb;
+    ;
+    transition: 600ms;
+}
+
+.content-title:hover:after {
+    margin-top: 5px;
+    text-align: center;
+    width: 100%;
+}

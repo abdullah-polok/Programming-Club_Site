@@ -3,7 +3,7 @@ import logo from "../../assets/ukhlogo.png";
 import JoinButton from "../JoinButton";
 const Footer = () => {
   return (
-    <footer className="mt-40 footer bg-indigo-50 text-black px-10 py-5 rounded-md">
+    <footer className="mt-36 footer bg-indigo-50 text-black px-10 py-5 rounded-md">
       <aside>
         <img src={logo} />
         <div>

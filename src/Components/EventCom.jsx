@@ -4,14 +4,25 @@ import event from "../assets/images/Events-pana.png";
 const EventCom = () => {
   return (
     <div className="mt-36">
-      <h1 className="text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
-        Weekly events
-      </h1>
-      <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 items-center">
-        <div className="w-full">
+      <div className="content-title">
+        <h1 className=" text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
+          Weekly events
+        </h1>
+      </div>
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 ">
+        <div
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          className="w-full -mt-16"
+        >
           <img src={event} />
         </div>
-        <div>
+        <div
+          data-aos="fade-left"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+        >
           <div>
             <CalenderCom></CalenderCom>
           </div>
