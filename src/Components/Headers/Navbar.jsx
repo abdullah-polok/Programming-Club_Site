@@ -10,18 +10,21 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/events"}>
-          Events
+        <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/compiler"}>
+          Compiler
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className="no-underline text-lg mx-0  mr-3 "
+          to={"/submission"}
+        >
+          Submission
         </NavLink>
       </li>
       <li>
         <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/resources"}>
           Resources
-        </NavLink>
-      </li>
-      <li>
-        <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/aboutus"}>
-          About us
         </NavLink>
       </li>
     </>
