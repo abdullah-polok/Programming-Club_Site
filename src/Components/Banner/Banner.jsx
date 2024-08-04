@@ -2,6 +2,7 @@ import React from "react";
 import banner from "../../assets/images/banner.png";
 import { Typewriter } from "react-simple-typewriter";
 import JoinButton from "../JoinButton";
+import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4  items-center bg-indigo-50 px-4 rounded-md">
@@ -29,7 +30,12 @@ const Banner = () => {
           exciting projects, and connect with a vibrant community of coders.
           Join us and take your passion for technology to new heights!
         </p>
-        <JoinButton></JoinButton>
+        <Link
+          className="btn w-40 bg-[#7c8deb] text-white text-lg mt-28"
+          to={"https://chat.whatsapp.com/I3vh4wnCFUYBRhBzgyeBC5"}
+        >
+          JOIN US
+        </Link>
       </div>
       <div>
         <img src={banner} className="mx-auto w-full" />

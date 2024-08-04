@@ -1,30 +1,22 @@
 import React from "react";
-
+import qr from ".././assets/images/qr-code.png";
 const JoinButton = () => {
   return (
-    <div className="text-center lg:text-left md:text-left">
-      <button
-        className="btn w-40 bg-[#7c8deb] text-white text-lg mt-28"
-        onClick={() => document.getElementById("my_modal_1").showModal()}
-      >
-        Join us
-      </button>
-      <dialog id="my_modal_1" className="modal">
+    <>
+      <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+      <div className="modal" role="dialog">
         <div className="modal-box">
-          <h3 className="font-bold text-lg text-center">Welcome</h3>
-          <p className="py-4">
-            Press ESC key or click the button below to close
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
-            </form>
-          </div>
+          <h3 className="text-lg font-bold">Hello!</h3>
+          <p className="py-4">This modal works with a hidden checkbox!</p>
         </div>
-      </dialog>
-    </div>
+        <label className="modal-backdrop" htmlFor="my_modal_7">
+          Close
+        </label>
+      </div>
+    </>
   );
 };
 
 export default JoinButton;
+
+///  className="btn w-40 bg-[#7c8deb] text-white text-lg mt-28"

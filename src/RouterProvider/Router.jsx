@@ -4,7 +4,7 @@ import Home from "../Pages/Home/Home";
 import Events from "../Pages/Events/Events";
 import Compiler from "../Pages/Compiler/Compiler";
 import Submission from "../Pages/Submission/Submission";
-
+import Resources from "../Pages/Resources/Resources";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/submission",
         element: <Submission></Submission>,
+      },
+      {
+        path: "/resources",
+        element: <Resources></Resources>,
       },
     ],
   },

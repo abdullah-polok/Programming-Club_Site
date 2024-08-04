@@ -2,6 +2,7 @@ import React from "react";
 import join from "../assets/images/Pair programming-cuate.png";
 import JoinButton from "./JoinButton";
 import "./commonCSS.css";
+import { Link } from "react-router-dom";
 const JoinUsCom = () => {
   return (
     <div className="mt-36 ">
@@ -22,8 +23,13 @@ const JoinUsCom = () => {
             skill levels. Sign up online or come to our next meeting to learn
             more and get involved
           </p>
-          <div className="">
-            <JoinButton></JoinButton>
+          <div className=" text-center md:text-center lg:text-left mb-4">
+            <Link
+              className="btn w-40 bg-[#7c8deb] text-white text-lg mt-28"
+              to={"https://chat.whatsapp.com/I3vh4wnCFUYBRhBzgyeBC5"}
+            >
+              JOIN US
+            </Link>
           </div>
         </div>
         <div className="-mt-24">
