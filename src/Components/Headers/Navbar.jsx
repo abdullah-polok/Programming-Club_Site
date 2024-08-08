@@ -1,7 +1,17 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import ukhLogo from "../../assets/ukhlogo.png";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 const Navbar = () => {
+  const userInfo = useContext(AuthContext);
+
+  const { user, logoutUser } = userInfo;
+
+  const handleUser = () => {
+    logoutUser();
+  };
+
   const links = (
     <>
       <li>
@@ -27,6 +37,26 @@ const Navbar = () => {
           Resources
         </NavLink>
       </li>
+      {user && (
+        <>
+          <li>
+            <NavLink
+              className="no-underline text-lg mx-0  mr-3 "
+              to={"/leaderboard"}
+            >
+              Leaderboard
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="no-underline text-lg mx-0  mr-3 "
+              to={"/dashboard"}
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -65,14 +95,26 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           <ul className="menu menu-sm">
-            <li>
-              <NavLink
-                className="no-underline text-lg mx-0  mr-3 "
-                to={"/login"}
-              >
-                Login
-              </NavLink>
-            </li>
+            {user ? (
+              <li>
+                <NavLink
+                  onClick={handleUser}
+                  className="no-underline text-lg mx-0  mr-3 "
+                  to={"/"}
+                >
+                  Logout
+                </NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink
+                  className="no-underline text-lg mx-0  mr-3 "
+                  to={"/login"}
+                >
+                  Login
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </div>

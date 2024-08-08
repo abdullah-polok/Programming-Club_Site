@@ -1,6 +1,49 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../AuthProvider/AuthProvider";
+
 const Login = () => {
+  const [loginMes, setLoginMes] = useState("");
+  const userInfo = useContext(AuthContext);
+  const { signInUser, loginUserPop } = userInfo;
+
+  const navigate = useNavigate();
+
+  const handlePopUp = () => {
+    loginUserPop()
+      .then((user) => {
+        console.log(user.user);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        setLoginMes(() => {
+          toast(err.message);
+          return err.message;
+        });
+      });
+  };
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    console.log(email, password);
+
+    signInUser(email, password)
+      .then((res) => {
+        console.log(res.user);
+        e.target.reset();
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   return (
     <div className="hero mt-10">
       <div className="hero-content flex-col">
@@ -8,7 +51,7 @@ const Login = () => {
           <h1 className="text-5xl font-bold text-[#7c8deb]">Login now!</h1>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form className="card-body">
+          <form onSubmit={handleSignIn} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -16,6 +59,7 @@ const Login = () => {
               <input
                 type="email"
                 placeholder="email"
+                name="email"
                 className="input input-bordered"
                 required
               />
@@ -26,6 +70,7 @@ const Login = () => {
               </label>
               <input
                 type="password"
+                name="password"
                 placeholder="password"
                 className="input input-bordered"
                 required

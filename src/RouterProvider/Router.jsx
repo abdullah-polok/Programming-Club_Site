@@ -6,6 +6,10 @@ import Compiler from "../Pages/Compiler/Compiler";
 import Submission from "../Pages/Submission/Submission";
 import Resources from "../Pages/Resources/Resources";
 import Login from "../Pages/Auth/Login/Login";
+import Register from "../Pages/Auth/Register/Register";
+import LeaderBoard from "../Pages/LeaderBoard/LeaderBoard";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import PrivateRouter from "../PrivateRouter/PrivateRouter";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,13 +41,29 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <Resources></Resources>,
+        element: <Register></Register>,
+      },
+      {
+        path: "/leaderboard",
+        element: (
+          <PrivateRouter>
+            <LeaderBoard></LeaderBoard>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <PrivateRouter>
+            <Dashboard></Dashboard>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "*",
+        element: <Error></Error>,
       },
     ],
-  },
-  {
-    path: "*",
-    element: <Error></Error>,
   },
 ]);
 
