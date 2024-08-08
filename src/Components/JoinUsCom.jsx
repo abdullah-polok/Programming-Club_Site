@@ -1,5 +1,5 @@
 import React from "react";
-import join from "../assets/images/Pair programming-cuate.png";
+import join from "../assets/images/pair-programming-animate.svg";
 import JoinButton from "./JoinButton";
 import "./commonCSS.css";
 import { Link } from "react-router-dom";
@@ -13,8 +13,11 @@ const JoinUsCom = () => {
       </div>
       <div
         data-aos="fade-left"
-        className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4"
+        className=" grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-14 justify-center items-center"
       >
+        <div className="mt-4">
+          <img src={join} />
+        </div>
         <div>
           <p className="mt-4 text-justify">
             Join our programming club to enhance your coding skills, work on
@@ -31,9 +34,6 @@ const JoinUsCom = () => {
               JOIN US
             </Link>
           </div>
-        </div>
-        <div className="-mt-24">
-          <img src={join} />
         </div>
       </div>
     </div>

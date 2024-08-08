@@ -5,6 +5,7 @@ import Events from "../Pages/Events/Events";
 import Compiler from "../Pages/Compiler/Compiler";
 import Submission from "../Pages/Submission/Submission";
 import Resources from "../Pages/Resources/Resources";
+import Login from "../Pages/Auth/Login/Login";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/resources",
+        element: <Resources></Resources>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/register",
         element: <Resources></Resources>,
       },
     ],

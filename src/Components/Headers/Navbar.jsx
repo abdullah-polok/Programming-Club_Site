@@ -32,7 +32,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-indigo-50 shadow shadow-gray-50">
+      <div className="navbar bg-base-100 drop-shadow-lg">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -58,12 +58,22 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <div>
-            <img src={ukhLogo}></img>
-          </div>
+          <img src={ukhLogo} alt="" />
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
+        </div>
+        <div className="navbar-end">
+          <ul className="menu menu-sm">
+            <li>
+              <NavLink
+                className="no-underline text-lg mx-0  mr-3 "
+                to={"/login"}
+              >
+                Login
+              </NavLink>
+            </li>
+          </ul>
         </div>
       </div>
     </>

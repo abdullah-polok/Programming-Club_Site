@@ -1,6 +1,14 @@
 import React from "react";
 import CalenderCom from "./CalenderCom";
 import event from "../assets/images/Events-pana.png";
+import eventani from "../assets/images/hand-coding-animate.svg";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+
 const EventCom = () => {
   return (
     <div className="mt-36">
@@ -9,15 +17,7 @@ const EventCom = () => {
           Weekly events
         </h1>
       </div>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 ">
-        <div
-          data-aos="fade-right"
-          data-aos-offset="300"
-          data-aos-easing="ease-in-sine"
-          className="w-full -mt-16"
-        >
-          <img src={event} />
-        </div>
+      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-14 justify-center items-center">
         <div
           data-aos="fade-left"
           data-aos-offset="300"
@@ -27,12 +27,29 @@ const EventCom = () => {
             <CalenderCom></CalenderCom>
           </div>
           <div className="rounded-lg mt-2">
-            <h1 className="bg-[#677aeb] text-white p-4 ">Events</h1>
-            <div className="bg-[#8b99ecd3] text-white p-4">
-              <p>Event 1 22024-08-01</p>
-              <p>Event 1 22024-08-01</p>
-            </div>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ArrowDownwardIcon />}
+                aria-controls="panel1-content"
+                id="panel1-header"
+              >
+                <Typography>Weekly Events</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>Event:1</Typography>
+                <br />
+                <Typography>Event:2</Typography>
+              </AccordionDetails>
+            </Accordion>
           </div>
+        </div>
+        <div
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          className="w-full "
+        >
+          <img className="w-11/12" src={eventani} alt="" />
         </div>
       </div>
     </div>
