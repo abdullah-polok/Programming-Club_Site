@@ -1,0 +1,25 @@
+.item {
+    min-height: 10rem;
+    min-width: 30rem;
+    padding: 5px;
+}
+
+.item img {
+    width: 60%;
+    height: 50%;
+    border-radius: 50px;
+    pointer-events: none;
+    padding: 15%;
+}
+
+.inner-carousel {
+    display: flex;
+    height: 40rem;
+}
+
+.carousel {
+    cursor: grab;
+    overflow: hidden;
+    height: 60rem;
+    width: 80rem;
+}

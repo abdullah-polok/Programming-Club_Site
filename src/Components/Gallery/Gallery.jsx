@@ -9,7 +9,7 @@ import im6 from "../../assets/images/Google-Hashcode-Competition-UKH-7-1024x683.
 import im7 from "../../assets/images/Google-Hashcode-Competition-UKH-10-1024x683.jpg";
 import im8 from "../../assets/images/Google-Hashcode-Competition-UKH-2.jpg";
 import im9 from "../../assets/images/Google-Hashcode-Competition-UKH-4-1024x683.jpg";
-
+import "./Gallery.css";
 const images = [im1, im2, im3, im4, im5, im6, im7, im8, im9];
 
 const variants = {
@@ -22,19 +22,42 @@ const variants = {
 };
 const Gallery = () => {
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center justify-center ">
-        {images.map((item) => (
-          <motion.div
-            className="relative"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.1 }} // Staggered animation
-          >
-            <img src={item} className="w-11/12 h-auto object-cover" />
+    <div className="mt-36">
+      <div className="content-title">
+        <h1 className="text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
+          Gallery
+        </h1>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center justify-center mt-10">
+        <motion.div
+          className="carousel relative"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.1 }}
+        >
+          <motion.div>
+            <div className="grid grid-cols-3 gap-4  ">
+              {images.map((image) => {
+                console.log(image);
+                return (
+                  <motion.div
+                    whileHover={{ scale: 1.2 }}
+                    // whileTap={{ scale: 2 }}
+                    key={image}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <img
+                      className="w-full h-auto rounded-xl"
+                      src={image}
+                      alt="image"
+                    />
+                  </motion.div>
+                );
+              })}
+            </div>
           </motion.div>
-        ))}
+        </motion.div>
       </div>
     </div>
   );
