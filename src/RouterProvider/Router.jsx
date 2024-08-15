@@ -21,7 +21,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/events",
-        element: <Events></Events>,
+        element: (
+          <PrivateRouter>
+            <Events></Events>
+          </PrivateRouter>
+        ),
       },
       {
         path: "/compiler",

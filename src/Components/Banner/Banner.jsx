@@ -3,12 +3,12 @@ import { Typewriter } from "react-simple-typewriter";
 import JoinButton from "../JoinButton";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import banner from "../../assets/images/banner1.png";
+import banner from "../../assets/images/banner1-overlay.png";
 import "./Banner.css";
 const Banner = () => {
   return (
     <div className="heroSection relative flex flex-col items-center justify-center h-screen bg-cover bg-center bg-fixed">
-      <div className="absolute top-1 inset-0 bg-black opacity-35 h-screen rounded"></div>
+      {/* <div className="absolute top-1 inset-0 bg-black opacity-35 h-screen rounded"></div> */}
       <div className="absolute top-[30%]">
         <motion.div
           initial={{ y: 100, opacity: 0 }}

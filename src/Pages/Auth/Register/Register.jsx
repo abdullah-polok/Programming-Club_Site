@@ -13,10 +13,23 @@ const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
+    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+    const department = form.department.value;
+    const year = form.year.value;
+    const ukhemail = form.ukhemail.value;
 
-    console.log(email, password);
+    console.log(
+      name,
+      email,
+      password,
+      confirmPassword,
+      department,
+      year,
+      ukhemail
+    );
 
     ///Check password length
     if (password.length < 6) {
@@ -44,6 +57,15 @@ const Register = () => {
 
       return;
     }
+
+    if (password !== confirmPassword) {
+      setRegisterError(() => {
+        toast("Password not match");
+        return "Password not match";
+      });
+      return;
+    }
+
     createUser(email, password)
       .then((res) => {
         console.log(res.user);
@@ -67,35 +89,92 @@ const Register = () => {
         <div className="text-center ">
           <h1 className="text-5xl font-bold">Register now!</h1>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form onSubmit={handleRegister} className="card-body">
+        <div className="card-body flex items-center  w-full max-w-sm ">
+          <form onSubmit={handleRegister} className=" shadow-md">
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
+              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+                Full Name
+                <input
+                  type="text"
+                  className="grow"
+                  placeholder="name"
+                  name="name"
+                  required
+                />
               </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="email"
-                className="input input-bordered"
-                required
-              />
             </div>
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
+            <div className="form-control mt-2">
+              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+                Email
+                <input
+                  type="email"
+                  name="email"
+                  className="grow"
+                  placeholder="email"
+                  required
+                />
               </label>
-              <input
-                type="password"
-                name="password"
-                placeholder="password"
-                className="input input-bordered"
-                required
-              />
-              <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
+            </div>
+            <div className="form-control mt-2">
+              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+                Password
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="password"
+                  className="grow"
+                  required
+                />
+              </label>
+            </div>
+            <div className="form-control mt-2">
+              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+                Confirm Password
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  className="grow"
+                  placeholder="confirm password"
+                  required
+                />
+              </label>
+            </div>
+            <div className="divider divider-primary">UKH Details</div>
+
+            <div className="form-control mt-2">
+              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+                Department
+                <input
+                  type="text"
+                  name="department"
+                  placeholder="department"
+                  className="grow"
+                  required
+                />
+              </label>
+            </div>
+            <div className="form-control mt-2">
+              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+                Year of Studies
+                <input
+                  type="number"
+                  name="year"
+                  placeholder="year"
+                  className="grow"
+                  required
+                />
+              </label>
+            </div>
+
+            <div className="form-control mt-2">
+              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+                UKH Email
+                <input
+                  type="email"
+                  name="ukhemail"
+                  placeholder="ukh email"
+                  className="grow"
+                />
               </label>
             </div>
             <div className="form-control mt-6">

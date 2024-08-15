@@ -8,6 +8,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Link } from "react-router-dom";
 
 const EventCom = () => {
   return (
@@ -36,9 +37,13 @@ const EventCom = () => {
                 <Typography>Weekly Events</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>Event:1</Typography>
+                <Typography>
+                  <Link to={"/events"}>Event:1</Link>
+                </Typography>
                 <br />
-                <Typography>Event:2</Typography>
+                <Typography>
+                  <Link to={"/events"}>Event:2</Link>
+                </Typography>
               </AccordionDetails>
             </Accordion>
           </div>

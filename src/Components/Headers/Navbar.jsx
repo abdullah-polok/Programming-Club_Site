@@ -20,6 +20,11 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
+        <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/events"}>
+          Events
+        </NavLink>
+      </li>
+      <li>
         <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/compiler"}>
           Compiler
         </NavLink>
@@ -30,11 +35,6 @@ const Navbar = () => {
           to={"/submission"}
         >
           Submission
-        </NavLink>
-      </li>
-      <li>
-        <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/resources"}>
-          Resources
         </NavLink>
       </li>
       {user && (
@@ -62,7 +62,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 drop-shadow-lg">
+      <div className="navbar">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -83,7 +83,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content  rounded-box z-[1] mt-3 w-52 p-2"
             >
               {links}
             </ul>
@@ -96,21 +96,25 @@ const Navbar = () => {
         <div className="navbar-end">
           <ul className="menu menu-sm">
             {user ? (
-              <li>
-                <NavLink
-                  onClick={handleUser}
-                  className="no-underline text-lg mx-0  mr-3 "
-                  to={"/"}
-                >
-                  Logout
-                </NavLink>
-              </li>
+              <div className="flex items-center justify-between">
+                <div className="avatar placeholder">
+                  <div className="bg-neutral text-neutral-content w-10 mr-2 rounded-full">
+                    <span>SY</span>
+                  </div>
+                </div>
+                <li>
+                  <NavLink
+                    onClick={handleUser}
+                    className="no-underline text-lg"
+                    to={"/"}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              </div>
             ) : (
               <li>
-                <NavLink
-                  className="no-underline text-lg mx-0  mr-3 "
-                  to={"/login"}
-                >
+                <NavLink className="no-underline text-lg" to={"/login"}>
                   Login
                 </NavLink>
               </li>

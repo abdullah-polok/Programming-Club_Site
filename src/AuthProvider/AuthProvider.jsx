@@ -15,6 +15,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [brandName, setBrandName] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [studentInfo, setStudentInfo] = useState([]);
 
   ////extra login
   const provider = new GoogleAuthProvider();
@@ -63,9 +64,11 @@ const AuthProvider = ({ children }) => {
     signInUser,
     loginUserPop,
     logoutUser,
+    studentInfo,
+    setStudentInfo,
   };
 
-  console.log(brandName);
+  // console.log(user.photoURL);
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );
