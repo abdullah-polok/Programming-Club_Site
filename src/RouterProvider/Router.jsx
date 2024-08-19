@@ -32,10 +32,6 @@ const router = createBrowserRouter([
         element: <Compiler></Compiler>,
       },
       {
-        path: "/submission",
-        element: <Submission></Submission>,
-      },
-      {
         path: "/resources",
         element: <Resources></Resources>,
       },

@@ -28,7 +28,7 @@ const Gallery = () => {
           Gallery
         </h1>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center justify-center mt-10">
+      <div className="mt-10">
         <motion.div
           className="carousel relative"
           variants={variants}
@@ -37,7 +37,7 @@ const Gallery = () => {
           transition={{ delay: 0.1 }}
         >
           <motion.div>
-            <div className="grid grid-cols-3 gap-4  ">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center  ">
               {images.map((image) => {
                 console.log(image);
                 return (
@@ -48,7 +48,7 @@ const Gallery = () => {
                     transition={{ delay: 0.1 }}
                   >
                     <img
-                      className="w-full h-auto rounded-xl"
+                      className="w-1/4 md:w-3/4 lg:w-full h-auto rounded-xl"
                       src={image}
                       alt="image"
                     />

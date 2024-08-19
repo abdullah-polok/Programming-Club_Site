@@ -29,14 +29,6 @@ const Navbar = () => {
           Compiler
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          className="no-underline text-lg mx-0  mr-3 "
-          to={"/submission"}
-        >
-          Submission
-        </NavLink>
-      </li>
       {user && (
         <>
           <li>

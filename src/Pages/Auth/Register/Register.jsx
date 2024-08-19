@@ -139,7 +139,7 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div className="divider divider-primary">UKH Details</div>
+            <div className="divider divider-primary">University's Details</div>
 
             <div className="form-control mt-2">
               <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">

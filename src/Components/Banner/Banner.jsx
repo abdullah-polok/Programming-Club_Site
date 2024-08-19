@@ -1,10 +1,23 @@
 import React from "react";
 import { Typewriter } from "react-simple-typewriter";
-import JoinButton from "../JoinButton";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import banner from "../../assets/images/banner1-overlay.png";
 import "./Banner.css";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import qr from "../../assets/images/qr-code.png";
+const MySwal = withReactContent(Swal);
+
+const showAlert = () => {
+  MySwal.fire({
+    title: "Welcome",
+    html: `<div>
+        <img src=${qr} />
+     </div>`,
+    confirmButtonText: "Close",
+    width: "30%",
+  });
+};
+
 const Banner = () => {
   return (
     <div className="heroSection relative flex flex-col items-center justify-center h-screen bg-cover bg-center bg-fixed">
@@ -46,7 +59,14 @@ const Banner = () => {
           transition={{ type: "spring", stiffness: 50, delay: 1 }} // Adjusted delay to start after the first message
           className="  text-sm md:text-base lg:text-lg text-white  p-5 text-center "
         >
-          <button className="btn md:btn-wide lg:btn-wide">JOIN US</button>
+          <div className="flex items-center justify-center">
+            <button
+              onClick={showAlert}
+              className="btn  btn-sm md:btn-lg lg:btn-wide bg-white"
+            >
+              JOIN US
+            </button>
+          </div>
         </motion.div>
       </div>
     </div>
