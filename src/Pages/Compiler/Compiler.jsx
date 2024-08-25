@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CodeEditorComponent from "../../Components/CodeEditorComponent/CodeEditorComponent ";
+import CompilerJudge from "../../Components/CompilerJudge/CompilerJudge";
 
 const Compiler = () => {
   return (
@@ -40,8 +40,9 @@ const Compiler = () => {
           </div>
         </div>
       </div> */}
+      <div>{/* <CodeEditorComponent></CodeEditorComponent> */}</div>
       <div>
-        <CodeEditorComponent></CodeEditorComponent>
+        <CompilerJudge></CompilerJudge>
       </div>
     </div>
   );
