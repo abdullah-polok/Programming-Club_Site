@@ -2,10 +2,8 @@ import React from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { motion } from "framer-motion";
 import "./Banner.css";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-import qr from "../../assets/images/qr-code.png";
-const MySwal = withReactContent(Swal);
+
+import { Link } from "react-router-dom";
 
 const showAlert = () => {
   MySwal.fire({
@@ -60,12 +58,18 @@ const Banner = () => {
           className="  text-sm md:text-base lg:text-lg text-white  p-5 text-center "
         >
           <div className="flex items-center justify-center">
-            <button
+            {/* <button
               onClick={showAlert}
               className="btn  btn-sm md:btn-lg lg:btn-wide bg-white"
             >
               JOIN US
-            </button>
+            </button> */}
+            <Link
+              to={"/joinus"}
+              className="btn  btn-sm md:btn-lg lg:btn-wide bg-white"
+            >
+              JOIN US
+            </Link>
           </div>
         </motion.div>
       </div>

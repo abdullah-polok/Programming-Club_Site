@@ -8,6 +8,8 @@ import {
 } from "firebase/auth";
 import { useEffect, createContext, useState } from "react";
 import { auth } from "../Firebase/firebase.config.js";
+import { db } from "../../Firebase/firebase.js";
+import { doc, setDoc } from "firebase/firestore";
 
 export const AuthContext = createContext(null);
 
@@ -15,14 +17,53 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [brandName, setBrandName] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [studentInfo, setStudentInfo] = useState([]);
-
+  const [studentdata, setStudentData] = useState({});
   ////extra login
   const provider = new GoogleAuthProvider();
 
+  const addStudent = async () => {
+    setLoading(true);
+    console.log("Data inside API", studentdata);
+    try {
+      // Destructure email and password from userData
+      const {
+        uid,
+        name,
+        email,
+        phonenuumber,
+        department,
+        year,
+        ukhemail,
+        role,
+      } = studentdata;
+
+      const dataToStore = {
+        uid,
+        name,
+        email,
+        phonenuumber,
+        department,
+        year,
+        ukhemail,
+        role,
+      };
+
+      // Store data in Firestore
+      // await setDoc(doc(db, "usersData", name), dataToStore);
+      await setDoc(
+        doc(db, "usersData", `${name + "(" + department + ")"}`),
+        dataToStore
+      );
+      console.log("student data save successfully");
+    } catch (err) {
+      console.log("Error in Storing");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   ///create user using firebase
   const createUser = (email, password) => {
-    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -47,7 +88,6 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-      console.log(currentUser);
     });
     return () => {
       unsubscribe();
@@ -60,15 +100,16 @@ const AuthProvider = ({ children }) => {
     user,
     setUser,
     loading,
-    createUser,
+    setLoading,
     signInUser,
     loginUserPop,
     logoutUser,
-    studentInfo,
-    setStudentInfo,
+    createUser,
+    studentdata,
+    setStudentData,
+    addStudent,
   };
 
-  // console.log(user.photoURL);
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );

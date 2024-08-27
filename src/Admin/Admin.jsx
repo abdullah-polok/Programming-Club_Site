@@ -1,39 +1,44 @@
 import React, { useState } from "react";
-import database from "../../firebase";
+import axios from "axios";
 const Admin = () => {
-  const [teamName, setTeamName] = useState("");
-  const [score, setScore] = useState("");
-  const handleSubmit = (e) => {
+  const [uid, setUid] = useState("");
+  const [message, setMessage] = useState("");
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const scoresRef = database.ref("scores");
-    const newScore = {
-      teamName,
-      score: Number(score),
-    };
-    scoresRef.push(newScore);
-    setTeamName("");
-    setScore("");
+    try {
+      const response = await axios.post("http://localhost:8000/admin", {
+        uid,
+      });
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage("Error setting admin role");
+    }
   };
   return (
     <div>
-      <div className="text-4xl font-bold bg-indigo-300 text-white text-center">
-        <h1>Live Score</h1>
-      </div>
+      <h1 className="text-center">Set Admin Role</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Team Name"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Score"
-          value={score}
-          onChange={(e) => setScore(e.target.value)}
-        />
-        <button type="submit">Update Score</button>
+        <div className="flex flex-col items-center justify-center">
+          <div>
+            <label>
+              User UID:
+              <input
+                className="border-2 rounded-lg mx-2 mt-2"
+                type="text"
+                value={uid}
+                onChange={(e) => setUid(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div className="mt-2">
+            <button className="btn btn-sm btn-primary" type="submit">
+              Set Admin
+            </button>
+          </div>
+        </div>
       </form>
+      <p>{message}</p>
     </div>
   );
 };

@@ -10,6 +10,8 @@ import Register from "../Pages/Auth/Register/Register";
 import LeaderBoard from "../Pages/LeaderBoard/LeaderBoard";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
+import Admin from "../Admin/Admin";
+import JoinUs from "../Pages/JoinUs/JoinUs";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +64,22 @@ const router = createBrowserRouter([
       {
         path: "*",
         element: <Error></Error>,
+      },
+      {
+        path: "/joinus",
+        element: (
+          <PrivateRouter>
+            <JoinUs></JoinUs>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/admin",
+        element: (
+          <PrivateRouter>
+            <Admin></Admin>
+          </PrivateRouter>
+        ),
       },
     ],
   },

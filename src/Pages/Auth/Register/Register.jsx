@@ -4,32 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 const Register = () => {
   const [registerError, setRegisterError] = useState("");
   const userInfo = useContext(AuthContext);
-  const { createUser } = userInfo;
+  const { createUser, user } = userInfo;
   const navigate = useNavigate();
-  const handleRegister = (e) => {
+
+  // const addUser = async () => {};
+  const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
-    const department = form.department.value;
-    const year = form.year.value;
-    const ukhemail = form.ukhemail.value;
-
-    console.log(
-      name,
-      email,
-      password,
-      confirmPassword,
-      department,
-      year,
-      ukhemail
-    );
 
     ///Check password length
     if (password.length < 6) {
@@ -65,7 +53,6 @@ const Register = () => {
       });
       return;
     }
-
     createUser(email, password)
       .then((res) => {
         console.log(res.user);
@@ -136,44 +123,6 @@ const Register = () => {
                   className="grow"
                   placeholder="confirm password"
                   required
-                />
-              </label>
-            </div>
-            <div className="divider divider-primary">University's Details</div>
-
-            <div className="form-control mt-2">
-              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
-                Department
-                <input
-                  type="text"
-                  name="department"
-                  placeholder="department"
-                  className="grow"
-                  required
-                />
-              </label>
-            </div>
-            <div className="form-control mt-2">
-              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
-                Year of Studies
-                <input
-                  type="number"
-                  name="year"
-                  placeholder="year"
-                  className="grow"
-                  required
-                />
-              </label>
-            </div>
-
-            <div className="form-control mt-2">
-              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
-                UKH Email
-                <input
-                  type="email"
-                  name="ukhemail"
-                  placeholder="ukh email"
-                  className="grow"
                 />
               </label>
             </div>

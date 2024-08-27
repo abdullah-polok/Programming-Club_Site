@@ -140,22 +140,22 @@ const CompilerJudge = () => {
         </div>
 
         <div className="w-full md:w-1/2 flex flex-col bg-gray-800 rounded p-4 md:ml-3">
-          <div className="flex flex-col h-1/2 mb-4">
+          <div className="flex flex-col h-1/2">
             <label htmlFor="input" className="text-gray-300 mb-2">
               Input
             </label>
             <textarea
-              className="form-control w-full h-full p-2 rounded border"
+              className="form-control w-full h-3/4 p-2 rounded border"
               id="input"
               onChange={handleUserInputChange}
             ></textarea>
           </div>
           <div className="flex flex-col h-1/2">
-            <label htmlFor="output" className="text-gray-300 mb-2">
+            <label htmlFor="output" className="text-gray-300">
               Output
             </label>
             <textarea
-              className="form-control w-full h-full p-2 rounded border"
+              className="form-control w-full h-3/4 p-2 rounded border"
               id="output"
             ></textarea>
           </div>
