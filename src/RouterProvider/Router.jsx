@@ -8,10 +8,11 @@ import Resources from "../Pages/Resources/Resources";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
 import LeaderBoard from "../Pages/LeaderBoard/LeaderBoard";
-import Dashboard from "../Pages/Dashboard/Dashboard";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
 import Admin from "../Admin/Admin";
 import JoinUs from "../Pages/JoinUs/JoinUs";
+import Profile from "../Pages/Profile/Profile";
+import AdminRouter from "../AdminRouter/AdminRouter";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,10 +55,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard",
+        path: "/profile",
         element: (
           <PrivateRouter>
-            <Dashboard></Dashboard>
+            <Profile></Profile>
           </PrivateRouter>
         ),
       },
@@ -76,9 +77,9 @@ const router = createBrowserRouter([
       {
         path: "/admin",
         element: (
-          <PrivateRouter>
+          <AdminRouter>
             <Admin></Admin>
-          </PrivateRouter>
+          </AdminRouter>
         ),
       },
     ],

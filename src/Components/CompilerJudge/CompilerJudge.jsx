@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const CompilerJudge = () => {
   const [input, setInput] = useState(localStorage.getItem("input") || "");
@@ -7,7 +8,7 @@ const CompilerJudge = () => {
     localStorage.getItem("language_Id") || 2
   );
   const [userInput, setUserInput] = useState("");
-
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     localStorage.setItem("input", input);
   }, [input]);
@@ -117,13 +118,15 @@ const CompilerJudge = () => {
               </select>
             </div>
             <div className="flex space-x-2">
-              <button
-                type="submit"
-                className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
-                onClick={handleSubmit}
-              >
-                Run
-              </button>
+              {user && (
+                <button
+                  type="submit"
+                  className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
+                  onClick={handleSubmit}
+                >
+                  Run
+                </button>
+              )}
             </div>
           </div>
           <div className=" bg-gray-800 rounded p-4">

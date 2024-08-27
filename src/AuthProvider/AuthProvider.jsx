@@ -9,7 +9,7 @@ import {
 import { useEffect, createContext, useState } from "react";
 import { auth } from "../Firebase/firebase.config.js";
 import { db } from "../../Firebase/firebase.js";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDocs, collection, query, where } from "firebase/firestore";
 
 export const AuthContext = createContext(null);
 
@@ -18,8 +18,33 @@ const AuthProvider = ({ children }) => {
   const [brandName, setBrandName] = useState([]);
   const [loading, setLoading] = useState(true);
   const [studentdata, setStudentData] = useState({});
+  const [profileData, setProfileData] = useState({});
   ////extra login
   const provider = new GoogleAuthProvider();
+
+  const getStudent = async (email) => {
+    try {
+      // Reference to the 'users' collection
+      const usersCollectionRef = collection(db, "usersData");
+
+      // Create a query against the collection
+      const q = query(usersCollectionRef, where("email", "==", email));
+
+      // Execute the query
+      const querySnapshot = await getDocs(q);
+
+      // Process the results
+      const users = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      return users;
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+      return null;
+    }
+  };
 
   const addStudent = async () => {
     setLoading(true);
@@ -93,7 +118,12 @@ const AuthProvider = ({ children }) => {
       unsubscribe();
     };
   }, []);
-
+  useEffect(() => {
+    getStudent(user?.email).then((userQ) => {
+      console.log(userQ[0]);
+      setProfileData(userQ[0]);
+    });
+  }, [user]);
   const userInfo = {
     brandName,
     setBrandName,
@@ -108,6 +138,7 @@ const AuthProvider = ({ children }) => {
     studentdata,
     setStudentData,
     addStudent,
+    profileData,
   };
 
   return (
