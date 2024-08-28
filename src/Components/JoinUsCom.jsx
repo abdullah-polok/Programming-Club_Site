@@ -29,7 +29,7 @@ const JoinUsCom = () => {
           <div className=" text-center md:text-center lg:text-left mb-4">
             <Link
               className="btn w-40 bg-[#7c8deb] text-white text-lg mt-28"
-              to={"https://chat.whatsapp.com/I3vh4wnCFUYBRhBzgyeBC5"}
+              to={"/joinus"}
             >
               JOIN US
             </Link>

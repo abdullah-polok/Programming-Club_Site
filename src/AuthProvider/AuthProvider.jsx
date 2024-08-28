@@ -7,42 +7,43 @@ import {
   signOut,
 } from "firebase/auth";
 import { useEffect, createContext, useState } from "react";
-import { auth } from "../Firebase/firebase.config.js";
-import { db } from "../../Firebase/firebase.js";
-import { doc, getDocs, collection, query, where } from "firebase/firestore";
+import { auth, db } from "../Firebase/firebase.config.js";
+import {
+  doc,
+  getDocs,
+  collection,
+  query,
+  where,
+  setDoc,
+  getDoc,
+} from "firebase/firestore";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [brandName, setBrandName] = useState([]);
   const [loading, setLoading] = useState(true);
   const [studentdata, setStudentData] = useState({});
   const [profileData, setProfileData] = useState({});
   ////extra login
   const provider = new GoogleAuthProvider();
 
-  const getStudent = async (email) => {
-    try {
-      // Reference to the 'users' collection
-      const usersCollectionRef = collection(db, "usersData");
-
-      // Create a query against the collection
-      const q = query(usersCollectionRef, where("email", "==", email));
-
-      // Execute the query
-      const querySnapshot = await getDocs(q);
-
-      // Process the results
-      const users = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      return users;
-    } catch (err) {
-      console.error("Error fetching user data:", err);
-      return null;
+  const getStudent = async () => {
+    if (user) {
+      try {
+        const userDocRef = doc(db, "usersData", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const studentData = userDocSnap.data().dataToStore;
+          setProfileData(studentData);
+        } else {
+          console.log("No user data found for this UID.");
+        }
+      } catch (error) {
+        console.log("Error fetching user data:", error);
+      }
+    } else {
+      console.log("User is not authenticated.");
     }
   };
 
@@ -51,37 +52,28 @@ const AuthProvider = ({ children }) => {
     console.log("Data inside API", studentdata);
     try {
       // Destructure email and password from userData
-      const {
-        uid,
-        name,
-        email,
-        phonenuumber,
-        department,
-        year,
-        ukhemail,
-        role,
-      } = studentdata;
+      const { uid, name, email, phonenumber, faculty, year, ukhemail, role } =
+        studentdata;
 
       const dataToStore = {
         uid,
         name,
         email,
-        phonenuumber,
-        department,
+        phonenumber,
+        faculty,
         year,
         ukhemail,
         role,
       };
-
+      console.log("Data Stored", dataToStore);
       // Store data in Firestore
       // await setDoc(doc(db, "usersData", name), dataToStore);
-      await setDoc(
-        doc(db, "usersData", `${name + "(" + department + ")"}`),
-        dataToStore
-      );
+      await setDoc(doc(db, "usersData", uid), {
+        dataToStore,
+      });
       console.log("student data save successfully");
     } catch (err) {
-      console.log("Error in Storing");
+      console.log("Error in Storing", err);
     } finally {
       setLoading(false);
     }
@@ -112,21 +104,19 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setStudentData({});
       setLoading(false);
     });
     return () => {
       unsubscribe();
     };
   }, []);
+
   useEffect(() => {
-    getStudent(user?.email).then((userQ) => {
-      console.log(userQ[0]);
-      setProfileData(userQ[0]);
-    });
+    getStudent();
   }, [user]);
+
   const userInfo = {
-    brandName,
-    setBrandName,
     user,
     setUser,
     loading,
@@ -141,6 +131,7 @@ const AuthProvider = ({ children }) => {
     profileData,
   };
 
+  // console.log("Loaded student data", );
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );

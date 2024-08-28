@@ -6,10 +6,10 @@ import im3 from "../../assets/images/Google-Hashcode-Competition-UKH-10-1024x683
 import im4 from "../../assets/images/Google-Hashcode-Competition-UKH-2.jpg";
 import im5 from "../../assets/images/Google-Hashcode-Competition-UKH-4-1024x683.jpg";
 import im6 from "../../assets/images/Google-Hashcode-Competition-UKH-7-1024x683.jpg";
-import im7 from "../../assets/images/Google-Hashcode-Competition-UKH-10-1024x683.jpg";
-import im8 from "../../assets/images/Google-Hashcode-Competition-UKH-2.jpg";
-import im9 from "../../assets/images/Google-Hashcode-Competition-UKH-4-1024x683.jpg";
-import "./Gallery.css";
+import im7 from "../../assets/images/Google-Hashcode-Competition-UKH-10-1024x683-Copy.jpg";
+import im8 from "../../assets/images/Google-Hashcode-Competition-UKH-2-copy.jpg";
+import im9 from "../../assets/images/Google-Hashcode-Competition-UKH-4-1024x683-copy.jpg";
+// import "./Gallery.css";
 const images = [im1, im2, im3, im4, im5, im6, im7, im8, im9];
 
 const variants = {
@@ -48,7 +48,7 @@ const Gallery = () => {
                     transition={{ delay: 0.1 }}
                   >
                     <img
-                      className="w-1/4 md:w-3/4 lg:w-full h-auto rounded-xl"
+                      className="w-full h-auto rounded-xl"
                       src={image}
                       alt="image"
                     />
@@ -62,5 +62,5 @@ const Gallery = () => {
     </div>
   );
 };
-
+//w-1/4 md:w-3/4 lg:
 export default Gallery;

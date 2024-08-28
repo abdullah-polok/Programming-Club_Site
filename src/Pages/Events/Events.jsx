@@ -8,7 +8,7 @@ const Events = () => {
           <h1 className="text-2xl">Weekly event</h1>
           <p className="text-base">Date:28-12-2024</p>
         </div>
-        <button className="btn btn-wide btn-Danger">Join</button>
+        <button className="btn btn-lg lg:btn-wide btn-Danger">Join</button>
       </div>
     </div>
   );

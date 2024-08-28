@@ -6,7 +6,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 const Navbar = () => {
   const userInfo = useContext(AuthContext);
 
-  const { user, logoutUser } = userInfo;
+  const { user, logoutUser, profileData } = userInfo;
 
   const handleUser = () => {
     logoutUser();
@@ -39,15 +39,14 @@ const Navbar = () => {
               Leaderboard
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              className="no-underline text-lg mx-0  mr-3 "
-              to={"/profile"}
-            >
-              Profile
-            </NavLink>
-          </li>
         </>
+      )}
+      {user && profileData && (
+        <li>
+          <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/profile"}>
+            Profile
+          </NavLink>
+        </li>
       )}
     </>
   );
@@ -89,11 +88,6 @@ const Navbar = () => {
           <ul className="menu menu-sm">
             {user ? (
               <div className="flex items-center justify-between">
-                <div className="avatar placeholder">
-                  <div className="bg-neutral text-neutral-content w-10 mr-2 rounded-full">
-                    <span>SY</span>
-                  </div>
-                </div>
                 <li>
                   <NavLink
                     onClick={handleUser}

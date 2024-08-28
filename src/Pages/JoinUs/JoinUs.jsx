@@ -12,31 +12,33 @@ const JoinUs = () => {
     const form = e.target;
     const name = form.name.value;
     const email = user?.email;
-    const department = form.department.value;
+    const faculty = form.faculty.value;
     const year = form.year.value;
     const ukhemail = form.ukhemail.value;
-    const phonenuumber = form.phonenuumber.value;
+    const phonenumber = form.phonenumber.value;
     const userData = {
-      uid: user?.uid,
+      uid: user.uid,
       name: name,
       email: email,
-      phonenuumber: phonenuumber,
+      phonenumber: phonenumber,
       year: year,
-      department: department,
+      faculty: faculty,
       ukhemail: ukhemail,
       role: "user",
     };
+
+    console.log("Inside the Join Function:", userData);
     setStudentData(userData);
     await addStudent();
-    e.target.reset();
-    MySwal.fire({
-      title: "Congratulations",
-      html: `<div>
-              <img src=${qr} />
-           </div>`,
-      confirmButtonText: "Close",
-      width: "30%",
-    });
+    // e.target.reset();
+    // MySwal.fire({
+    //   title: "Congratulations",
+    //   html: `<div>
+    //           <img src=${qr} />
+    //        </div>`,
+    //   confirmButtonText: "Close",
+    //   width: "30%",
+    // });
   };
 
   return (
@@ -76,7 +78,7 @@ const JoinUs = () => {
                 Phone Number
                 <input
                   type="text"
-                  name="phonenuumber"
+                  name="phonenumber"
                   className="grow"
                   placeholder="phone number"
                   required
@@ -86,11 +88,11 @@ const JoinUs = () => {
             <div className="divider divider-primary">University's Details</div>
             <div className="form-control mt-2">
               <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
-                Department
+                Faculty
                 <input
                   type="text"
-                  name="department"
-                  placeholder="department"
+                  name="faculty"
+                  placeholder="faculty"
                   className="grow"
                   required
                 />
