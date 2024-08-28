@@ -85,10 +85,13 @@ const Login = () => {
               </button>
             </div>
           </form>
-          <div className="flex justify-between px-5 py-10">
-            <h1>Google</h1>
-            <h1>github</h1>
-            <h1>Twitter</h1>
+          <div className="flex justify-between px-8 py-10">
+            <button
+              onClick={handlePopUp}
+              className="btn w-full bg-red-400 text-white"
+            >
+              Sign in with Google
+            </button>
           </div>
           <div className="text-center pb-5">
             <Link to="/register" className="text-xl text-[#7c8deb]">
