@@ -37,21 +37,17 @@ const Gallery = () => {
           transition={{ delay: 0.1 }}
         >
           <motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center  ">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center p-5 ">
               {images.map((image) => {
                 console.log(image);
                 return (
                   <motion.div
-                    whileHover={{ scale: 1.2 }}
+                    whileHover={{ scale: 1.1, borderRadius: 12 }}
                     // whileTap={{ scale: 2 }}
                     key={image}
                     transition={{ delay: 0.1 }}
                   >
-                    <img
-                      className="w-full h-auto rounded-xl"
-                      src={image}
-                      alt="image"
-                    />
+                    <img className="w-full h-auto rounded-xl" src={image} />
                   </motion.div>
                 );
               })}
