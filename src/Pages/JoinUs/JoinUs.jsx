@@ -31,14 +31,14 @@ const JoinUs = () => {
     setStudentData(userData);
     await addStudent();
     // e.target.reset();
-    // MySwal.fire({
-    //   title: "Congratulations",
-    //   html: `<div>
-    //           <img src=${qr} />
-    //        </div>`,
-    //   confirmButtonText: "Close",
-    //   width: "30%",
-    // });
+    MySwal.fire({
+      html: `<div>
+      <h1 className="text-xs md:text-lg lg:text-xl text-primary">Congratulations</h1>
+              <img className="w-full" src=${qr} />
+           </div>`,
+      confirmButtonText: "Close",
+      width: "50%",
+    });
   };
 
   return (
