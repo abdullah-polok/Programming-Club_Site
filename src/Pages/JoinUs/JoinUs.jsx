@@ -123,6 +123,9 @@ const JoinUs = () => {
               </label>
             </div>
             <div className="form-control mt-6">
+              <h1 className="text-red-600 text-center mb-2">
+                Click two times on submit button
+              </h1>
               <button className="btn btn-primary">Submit</button>
               <ToastContainer></ToastContainer>
             </div>
