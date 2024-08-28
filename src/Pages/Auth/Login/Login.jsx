@@ -10,20 +10,19 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handlePopUp = () => {
-    loginUserPop()
-      .then((user) => {
-        console.log(user.user);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setLoginMes(() => {
-          toast(err.message);
-          return err.message;
-        });
-      });
-  };
+  // const handlePopUp = () => {
+  //   loginUserPop()
+  //     .then((user) => {
+  //       console.log(user.user);
+  //       navigate("/");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //       setLoginMes(() => {
+  //         return err.message;
+  //       });
+  //     });
+  // };
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -86,12 +85,12 @@ const Login = () => {
             </div>
           </form>
           <div className="flex justify-between px-8 py-10">
-            <button
+            {/* <button
               onClick={handlePopUp}
               className="btn w-full bg-red-400 text-white"
             >
               Sign in with Google
-            </button>
+            </button> */}
           </div>
           <div className="text-center pb-5">
             <Link to="/register" className="text-xl text-[#7c8deb]">
