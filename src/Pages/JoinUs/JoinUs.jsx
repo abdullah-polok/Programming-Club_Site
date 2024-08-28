@@ -50,7 +50,7 @@ const JoinUs = () => {
         <div className="text-center ">
           <h1 className="text-5xl font-bold">Join now!</h1>
         </div>
-        <div className="card-body flex items-center  w-full max-w-sm ">
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl p-4">
           <form onSubmit={handleSubmit} className=" shadow-md">
             <div className="form-control">
               <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
@@ -141,7 +141,7 @@ const JoinUs = () => {
           <button
             onClick={handleScan}
             hidden={!profileData}
-            className="btn btn-primary w-full "
+            className="btn btn-primary w-full mt-2"
           >
             Scan
           </button>
