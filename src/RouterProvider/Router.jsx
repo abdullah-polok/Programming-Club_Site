@@ -3,7 +3,6 @@ import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home";
 import Events from "../Pages/Events/Events";
 import Compiler from "../Pages/Compiler/Compiler";
-import Submission from "../Pages/Submission/Submission";
 import Resources from "../Pages/Resources/Resources";
 import Login from "../Pages/Auth/Login/Login";
 import Register from "../Pages/Auth/Register/Register";
@@ -13,6 +12,7 @@ import Admin from "../Admin/Admin";
 import JoinUs from "../Pages/JoinUs/JoinUs";
 import Profile from "../Pages/Profile/Profile";
 import AdminRouter from "../AdminRouter/AdminRouter";
+import Error from "../Pages/Error/Error";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -63,10 +63,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "*",
-        element: <Error></Error>,
-      },
-      {
         path: "/joinus",
         element: (
           <PrivateRouter>
@@ -83,6 +79,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Error></Error>,
   },
 ]);
 

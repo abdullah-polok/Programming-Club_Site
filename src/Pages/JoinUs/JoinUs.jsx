@@ -32,6 +32,8 @@ const JoinUs = () => {
     setStudentData(userData);
     await addStudent();
     // e.target.reset();
+  };
+  const handleScan = () => {
     MySwal.fire({
       html: `<div>
       <h1 className="text-xs md:text-lg lg:text-xl text-primary">Congratulations</h1>
@@ -136,6 +138,13 @@ const JoinUs = () => {
               <ToastContainer></ToastContainer>
             </div>
           </form>
+          <button
+            onClick={handleScan}
+            hidden={!profileData}
+            className="btn btn-primary w-full "
+          >
+            Scan
+          </button>
         </div>
       </div>
     </div>
@@ -143,3 +152,10 @@ const JoinUs = () => {
 };
 
 export default JoinUs;
+
+///disable button technique
+{
+  /* <button disabled={profileData} className="btn btn-primary">
+Submit
+</button> */
+}
