@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import qr from "../../assets/images/qr-code.png";
 const JoinUs = () => {
-  const { user, addStudent, setStudentData } = useContext(AuthContext);
+  const { user, addStudent, setStudentData, profileData } =
+    useContext(AuthContext);
   const MySwal = withReactContent(Swal);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -123,10 +124,15 @@ const JoinUs = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <h1 className="text-red-600 text-center mb-2">
+              <h1
+                hidden={profileData}
+                className="text-red-600 text-center mb-2"
+              >
                 Click two times on submit button
               </h1>
-              <button className="btn btn-primary">Submit</button>
+              <button disabled={profileData} className="btn btn-primary">
+                Submit
+              </button>
               <ToastContainer></ToastContainer>
             </div>
           </form>
