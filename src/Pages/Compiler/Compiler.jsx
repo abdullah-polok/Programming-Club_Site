@@ -41,6 +41,7 @@ const Compiler = () => {
         </div>
       </div> */}
       <div>{/* <CodeEditorComponent></CodeEditorComponent> */}</div>
+
       <div>
         <CompilerJudge></CompilerJudge>
       </div>

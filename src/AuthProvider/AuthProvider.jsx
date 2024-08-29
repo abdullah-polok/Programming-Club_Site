@@ -16,6 +16,7 @@ import {
   where,
   setDoc,
   getDoc,
+  addDoc,
 } from "firebase/firestore";
 
 export const AuthContext = createContext(null);
@@ -25,8 +26,43 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [studentdata, setStudentData] = useState({});
   const [profileData, setProfileData] = useState({});
+  const [createProblem, setCreateProblem] = useState({});
+  const [checkStoredProblem, setCheckStoredProblem] = useState(false);
   ////extra login
   const provider = new GoogleAuthProvider();
+
+  const handleCreateProblem = async () => {
+    setLoading(true);
+    console.log("Problem inside API", createProblem);
+    try {
+      // Destructure email and password from userData
+      const {
+        problemName,
+        describeProblem,
+        outerInputProblem,
+        innerInputProblem,
+        outputProblem,
+      } = createProblem;
+
+      const dataToStore = {
+        problemName,
+        describeProblem,
+        outerInputProblem,
+        innerInputProblem,
+        outputProblem,
+      };
+      console.log("Data Stored", dataToStore);
+      const docRef = await addDoc(collection(db, "problemsData"), {
+        dataToStore,
+      });
+
+      setCheckStoredProblem(true);
+    } catch (err) {
+      console.log("Error in Storing", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStudent = async () => {
     if (user) {
@@ -43,7 +79,7 @@ const AuthProvider = ({ children }) => {
         console.log("Error fetching user data:", error);
       }
     } else {
-      console.log("User is not authenticated.");
+      console.log("User is not authenticated");
     }
   };
 
@@ -113,7 +149,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    getStudent();
+    if (!checkStoredProblem) getStudent();
   }, [user]);
 
   const userInfo = {
@@ -129,6 +165,10 @@ const AuthProvider = ({ children }) => {
     setStudentData,
     addStudent,
     profileData,
+    createProblem,
+    setCreateProblem,
+    handleCreateProblem,
+    checkStoredProblem,
   };
 
   // console.log("Loaded student data", );
