@@ -13,6 +13,7 @@ import JoinUs from "../Pages/JoinUs/JoinUs";
 import Profile from "../Pages/Profile/Profile";
 import AdminRouter from "../AdminRouter/AdminRouter";
 import Error from "../Pages/Error/Error";
+import ProblemSets from "../Pages/Events/ProblemSets/ProblemSets";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,6 +68,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <JoinUs></JoinUs>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/problemset",
+        element: (
+          <PrivateRouter>
+            <ProblemSets></ProblemSets>
           </PrivateRouter>
         ),
       },

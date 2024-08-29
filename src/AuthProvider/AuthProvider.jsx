@@ -27,6 +27,7 @@ const AuthProvider = ({ children }) => {
   const [studentdata, setStudentData] = useState({});
   const [profileData, setProfileData] = useState({});
   const [createProblem, setCreateProblem] = useState({});
+  const [problemCollections, setProblemCollections] = useState([]);
   const [checkStoredProblem, setCheckStoredProblem] = useState(false);
   ////extra login
   const provider = new GoogleAuthProvider();
@@ -64,6 +65,29 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const handleGetProblem = async () => {
+    try {
+      // Reference to the 'products' collection
+      const problemCollectionRef = collection(db, "problemsData");
+
+      // Get all documents in the 'products' collection
+      const querySnapshot = await getDocs(problemCollectionRef);
+
+      // Iterate over each document in the collection
+      const problems = querySnapshot.docs.map((doc) => ({
+        id: doc.id, // Document ID
+        ...doc.data(), // Document data
+      }));
+
+      // Log all products data
+      // console.log(problems);
+      setProblemCollections(problems);
+
+      return products; // Return products array if needed
+    } catch (error) {
+      console.error("Error fetching products: ");
+    }
+  };
   const getStudent = async () => {
     if (user) {
       try {
@@ -140,6 +164,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      handleGetProblem();
       setStudentData({});
       setLoading(false);
     });
@@ -169,8 +194,10 @@ const AuthProvider = ({ children }) => {
     setCreateProblem,
     handleCreateProblem,
     checkStoredProblem,
+    problemCollections,
   };
 
+  // console.log(problemCollections);
   // console.log("Loaded student data", );
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
