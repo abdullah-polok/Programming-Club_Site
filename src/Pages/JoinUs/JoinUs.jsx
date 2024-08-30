@@ -8,7 +8,8 @@ const JoinUs = () => {
   const { user, addStudent, setStudentData, profileData } =
     useContext(AuthContext);
   const MySwal = withReactContent(Swal);
-
+  // console.log("Profile Data join us",);
+  const profileLength = Object.keys(profileData).length;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -128,13 +129,13 @@ const JoinUs = () => {
             </div>
             <div className="form-control mt-6">
               <h1
-                hidden={profileData ? true : false}
-                className="text-red-600 text-center mb-2"
+                hidden={profileLength ? true : false}
+                className="text-red-600 text-center font-bold mb-2"
               >
                 Click two times on submit button
               </h1>
               <button
-                disabled={profileData ? true : false}
+                disabled={profileLength ? true : false}
                 className="btn btn-primary"
               >
                 Submit
@@ -144,7 +145,7 @@ const JoinUs = () => {
           </form>
           <button
             onClick={handleScan}
-            disabled={profileData ? false : true}
+            disabled={profileLength ? false : true}
             className="btn btn-primary w-full mt-2"
           >
             Scan
