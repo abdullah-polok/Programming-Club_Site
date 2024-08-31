@@ -33,6 +33,8 @@ const AuthProvider = ({ children }) => {
   ////extra login
   const provider = new GoogleAuthProvider();
 
+  ////Start Probelem sevtion>>>>>>>
+
   const handleCreateProblem = async () => {
     setLoading(true);
     console.log("Problem inside API", createProblem);
@@ -89,6 +91,9 @@ const AuthProvider = ({ children }) => {
       console.error("Error fetching products: ");
     }
   };
+
+  //////End of Problem section>>>>>>>>>>
+
   const getStudent = async () => {
     if (user) {
       try {

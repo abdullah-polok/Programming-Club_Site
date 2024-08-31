@@ -105,7 +105,7 @@ const CompilerJudge = () => {
     <div>
       <div className="flex flex-col md:flex-row m-3">
         <div className="w-full md:w-1/2 mb-2">
-          <div className="flex justify-between mb-2 bg-gray-800 rounded p-2">
+          <div className="flex justify-between mb-2 bg-slate-300 rounded p-2">
             <div className="w-1/4">
               <select
                 value={languageId}
@@ -129,7 +129,7 @@ const CompilerJudge = () => {
               )}
             </div>
           </div>
-          <div className=" bg-gray-800 rounded p-4">
+          <div className=" bg-slate-300 rounded p-4">
             <textarea
               required
               name="solution"
@@ -142,7 +142,7 @@ const CompilerJudge = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 flex flex-col bg-gray-800 rounded p-4 md:ml-3">
+        <div className="w-full md:w-1/2 flex flex-col bg-slate-300 rounded p-4 md:ml-3">
           <div className="flex flex-col h-1/2">
             <label htmlFor="input" className="text-gray-300 mb-2">
               Input

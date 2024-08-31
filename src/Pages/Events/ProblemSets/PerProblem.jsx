@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
+import CompilerJudge from "../../../Components/CompilerJudge/CompilerJudge";
 
 const PerProblem = () => {
   const { eachProblem } = useContext(AuthContext);
@@ -22,15 +23,24 @@ const PerProblem = () => {
       <div className="text-xs md:text-base lg:text-lg mt-12">
         <h1 className="text-lg font-semibold">Input</h1>
         {outerInputProblem && (
-          <p className="text-xs md:text-sm lg:text:sm">{outerInputProblem}</p>
+          <p className="text-xs md:text-sm lg:text:sm bg-slate-200 px-2">
+            {outerInputProblem}
+          </p>
         )}
         {innerInputProblem && (
-          <p className="text-xs md:text-sm lg:text:sm">{innerInputProblem}</p>
+          <p className="text-xs md:text-sm lg:text:sm bg-slate-300 px-2">
+            {innerInputProblem}
+          </p>
         )}
       </div>
       <div className="text-xs md:text-base lg:text-lg mt-12">
         <h1 className="text-lg font-semibold">Output</h1>
-        <p className="text-xs md:text-sm lg:text:sm">{outputProblem}</p>
+        <p className="text-xs md:text-sm lg:text:sm  bg-slate-300 px-2">
+          {outputProblem}
+        </p>
+      </div>
+      <div className="mt-10">
+        <CompilerJudge></CompilerJudge>
       </div>
     </div>
   );
