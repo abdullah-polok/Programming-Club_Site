@@ -98,9 +98,8 @@ const CompilerJudge = () => {
       const compilationError = atob(jsonGetSolution.compile_output);
       outputText.innerHTML = `\n Error :${compilationError}`;
     }
-    console.log("Output: ", outputCode);
   };
-
+  console.log("Output: ", outputCode);
   return (
     <div>
       <div className="flex flex-col md:flex-row m-3">

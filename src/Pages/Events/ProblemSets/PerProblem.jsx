@@ -39,6 +39,15 @@ const PerProblem = () => {
           {outputProblem}
         </p>
       </div>
+      <div className="text-xs md:text-base lg:text-lg mt-12">
+        <h1 className="text-lg font-semibold">Status</h1>
+        <p className="text-xs md:text-sm lg:text-lg w-14 text-green-700  bg-green-400 px-2 font-bold">
+          Pass
+        </p>
+        <p className="text-xs md:text-sm lg:text-lg w-14 text-red-900  bg-red-400 px-2 font-bold">
+          Fail
+        </p>
+      </div>
       <div className="mt-10">
         <CompilerJudge></CompilerJudge>
       </div>
