@@ -8,6 +8,7 @@ const Navbar = () => {
 
   const { user, logoutUser, profileData } = userInfo;
 
+  const profileLength = Object.keys(profileData).length;
   const handleUser = () => {
     logoutUser();
   };
@@ -41,12 +42,14 @@ const Navbar = () => {
           </li>
         </>
       )}
-      {user && profileData && (
+      {profileLength ? (
         <li>
           <NavLink className="no-underline text-lg mx-0  mr-3 " to={"/profile"}>
             Profile
           </NavLink>
         </li>
+      ) : (
+        ""
       )}
     </>
   );
