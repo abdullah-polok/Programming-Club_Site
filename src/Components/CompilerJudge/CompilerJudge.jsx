@@ -3,12 +3,12 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const CompilerJudge = () => {
   const [input, setInput] = useState(localStorage.getItem("input") || "");
-  const [outputCode, setOutputCode] = useState({});
+
   const [languageId, setLanguageId] = useState(
     localStorage.getItem("language_Id") || 2
   );
   const [userInput, setUserInput] = useState("");
-  const { user } = useContext(AuthContext);
+  const { user, outputCode, setOutputCode } = useContext(AuthContext);
   useEffect(() => {
     localStorage.setItem("input", input);
   }, [input]);
@@ -99,7 +99,7 @@ const CompilerJudge = () => {
       outputText.innerHTML = `\n Error :${compilationError}`;
     }
   };
-  console.log("Output: ", outputCode);
+  // console.log("Output: ", outputCode);
   return (
     <div>
       <div className="flex flex-col md:flex-row m-3">
