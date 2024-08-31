@@ -4,7 +4,7 @@ import PerProblem from "./PerProblem";
 import { Link } from "react-router-dom";
 
 const ProblemSets = () => {
-  const { problemCollections } = useContext(AuthContext);
+  const { problemCollections, setEachProblem } = useContext(AuthContext);
   return (
     <>
       <div className="flex justify-between border-2 rounded-lg p-2">
@@ -12,15 +12,32 @@ const ProblemSets = () => {
         <h1>Problem Name</h1>
         <h1>Status</h1>
       </div>
-      {problemCollections.map((perProblem, index = 0) => (
-        <PerProblem
-          perProblem={perProblem}
-          key={perProblem.problemName}
-          index={index + 1}
-        ></PerProblem>
-      ))}
+      {problemCollections.map(
+        (perProblem, index = 0) => (
+          //console.log(perProblem.dataToStore),
+          setEachProblem(perProblem.dataToStore),
+          (
+            <Link to={"/perproblem"}>
+              <div className="flex justify-between p-2 bg-slate-200 mt-1 rounded-lg">
+                <h1>{index + 1}</h1>
+                <h1>{perProblem.dataToStore.problemName}</h1>
+                <h1>Accept</h1>
+              </div>
+            </Link>
+          )
+        )
+      )}
     </>
   );
 };
 
 export default ProblemSets;
+{
+  /* <Link to={{ pathname: "/perproblem", state: perProblem.dataToStore }}>
+          <div className="flex justify-between p-2 bg-slate-200 mt-1 rounded-lg">
+            <h1>{index + 1}</h1>
+            <h1>{perProblem.dataToStore.problemName}</h1>
+            <h1>Accept</h1>
+          </div>
+        </Link> */
+}
