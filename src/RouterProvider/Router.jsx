@@ -15,6 +15,7 @@ import AdminRouter from "../AdminRouter/AdminRouter";
 import Error from "../Pages/Error/Error";
 import ProblemSets from "../Pages/Events/ProblemSets/ProblemSets";
 import PerProblem from "../Pages/Events/ProblemSets/PerProblem";
+import ProblemDetails from "../Pages/Events/ProblemSets/ProblemDetails";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -85,6 +86,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRouter>
             <PerProblem></PerProblem>
+          </PrivateRouter>
+        ),
+      },
+      {
+        path: "/problemdetails",
+        element: (
+          <PrivateRouter>
+            <ProblemDetails></ProblemDetails>
           </PrivateRouter>
         ),
       },

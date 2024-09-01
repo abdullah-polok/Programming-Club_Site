@@ -71,10 +71,10 @@ const AuthProvider = ({ children }) => {
 
   const handleGetProblem = async () => {
     try {
-      // Reference to the 'products' collection
+      // Reference to the 'problems' collection
       const problemCollectionRef = collection(db, "problemsData");
 
-      // Get all documents in the 'products' collection
+      // Get all documents in the 'problems' collection
       const querySnapshot = await getDocs(problemCollectionRef);
 
       // Iterate over each document in the collection
@@ -83,13 +83,13 @@ const AuthProvider = ({ children }) => {
         ...doc.data(), // Document data
       }));
 
-      // Log all products data
+      // Log all problems data
       // console.log(problems);
       setProblemCollections(problems);
 
-      return products; // Return products array if needed
+      return problems; // Return problems array if needed
     } catch (error) {
-      console.error("Error fetching products: ");
+      console.log("Error fetching products:", error);
     }
   };
 
