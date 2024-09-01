@@ -35,6 +35,40 @@ const AuthProvider = ({ children }) => {
   ////extra login
   const provider = new GoogleAuthProvider();
 
+  /////Setup timer for problem
+
+  // Example total duration in minutes
+  const TOTAL_DURATION_MINUTES = 60; // Modify this as per your requirement
+
+  // Countdown state
+  const [endTime, setEndTime] = useState(() => {
+    const savedEndTime = localStorage.getItem("globalEndTime");
+    return savedEndTime ? parseInt(savedEndTime, 10) : null;
+  });
+
+  // Function to start the countdown
+  const startCountdown = () => {
+    const newEndTime =
+      new Date().getTime() + TOTAL_DURATION_MINUTES * 60 * 1000;
+    setEndTime(newEndTime);
+    localStorage.setItem("globalEndTime", newEndTime);
+  };
+
+  useEffect(() => {
+    if (!endTime) {
+      startCountdown(); // Initialize countdown if not already started
+    }
+  }, [endTime]);
+
+  // Function to reset the countdown
+  const resetCountdown = () => {
+    localStorage.removeItem("globalEndTime");
+    setEndTime(null);
+    startCountdown();
+  };
+
+  /////////////End of timer/////////////
+
   ////Start Probelem sevtion>>>>>>>
 
   const handleCreateProblem = async () => {
@@ -211,6 +245,9 @@ const AuthProvider = ({ children }) => {
     setOutputCode,
     codeLength,
     setCodeLength,
+    endTime,
+    startCountdown,
+    resetCountdown,
   };
 
   // console.log(problemCollections);
