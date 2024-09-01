@@ -13,7 +13,7 @@ const PerProblem = ({ perProblem, index }) => {
   };
   return (
     <div className="flex justify-between p-2 bg-slate-200 mt-1 rounded-lg">
-      <h1>{index + 1}</h1>
+      <h1>{index}</h1>
       <h1>{problemName}</h1>
       <button
         onClick={openProblem}

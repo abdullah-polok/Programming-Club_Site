@@ -4,17 +4,21 @@ import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const ProblemDetails = () => {
-  const { outputCode } = useContext(AuthContext);
+  const { outputCode, codeLength } = useContext(AuthContext);
   const { result } = outputCode;
+  // console.log("inside code details", codeLength);
+
   const location = useLocation();
-  console.log(location.state);
   const {
     problemName,
     describeProblem,
     innerInputProblem,
     outerInputProblem,
     outputProblem,
+    inputCodeLength,
   } = location.state;
+  console.log(inputCodeLength);
+  const inputCodeLengthInt = parseInt(inputCodeLength);
   return (
     <div className="flex flex-col  p-2 border-2 border-primary rounded-lg">
       <div className="text-center text-xs md:text-lg lg:text-2xl font-bold">
@@ -44,12 +48,18 @@ const ProblemDetails = () => {
       </div>
       <div className="text-xs md:text-base lg:text-lg mt-12">
         <h1 className="text-lg font-semibold">Status</h1>
-        {outputProblem === result ? (
-          <p className="text-xs md:text-sm lg:text-lg w-14 text-green-700  bg-green-400 px-2 font-bold">
+        {codeLength > inputCodeLengthInt && outputProblem === result ? (
+          <p
+            hidden={result ? false : true}
+            className="text-xs md:text-sm lg:text-lg w-14 text-green-700  bg-green-400 px-2 font-bold"
+          >
             Pass
           </p>
         ) : (
-          <p className="text-xs md:text-sm lg:text-lg w-14 text-red-900  bg-red-400 px-2 font-bold">
+          <p
+            hidden={result ? false : true}
+            className="text-xs md:text-sm lg:text-lg w-14 text-red-900  bg-red-400 px-2 font-bold"
+          >
             Fail
           </p>
         )}

@@ -31,6 +31,7 @@ const AuthProvider = ({ children }) => {
   const [checkStoredProblem, setCheckStoredProblem] = useState(false);
   const [eachProblem, setEachProblem] = useState({});
   const [outputCode, setOutputCode] = useState({});
+  const [codeLength, setCodeLength] = useState(null);
   ////extra login
   const provider = new GoogleAuthProvider();
 
@@ -46,6 +47,7 @@ const AuthProvider = ({ children }) => {
         describeProblem,
         outerInputProblem,
         innerInputProblem,
+        inputCodeLength,
         outputProblem,
       } = createProblem;
 
@@ -54,6 +56,7 @@ const AuthProvider = ({ children }) => {
         describeProblem,
         outerInputProblem,
         innerInputProblem,
+        inputCodeLength,
         outputProblem,
       };
       console.log("Data Stored", dataToStore);
@@ -206,6 +209,8 @@ const AuthProvider = ({ children }) => {
     setEachProblem,
     outputCode,
     setOutputCode,
+    codeLength,
+    setCodeLength,
   };
 
   // console.log(problemCollections);

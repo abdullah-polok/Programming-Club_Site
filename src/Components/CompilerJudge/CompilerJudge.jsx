@@ -8,7 +8,8 @@ const CompilerJudge = () => {
     localStorage.getItem("language_Id") || 2
   );
   const [userInput, setUserInput] = useState("");
-  const { user, outputCode, setOutputCode } = useContext(AuthContext);
+  const { user, outputCode, setOutputCode, codeLength, setCodeLength } =
+    useContext(AuthContext);
   useEffect(() => {
     localStorage.setItem("input", input);
   }, [input]);
@@ -31,6 +32,7 @@ const CompilerJudge = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setCodeLength(input.length);
     const outputText = document.getElementById("output");
     outputText.innerHTML = "Creating Submission ...\n";
 
@@ -99,7 +101,9 @@ const CompilerJudge = () => {
       outputText.innerHTML = `\n Error :${compilationError}`;
     }
   };
-  // console.log("Output: ", outputCode);
+  // console.log("codeLength Output: ", codeLength);
+  // console.log("Output: ", input.length);
+
   return (
     <div>
       <div className="flex flex-col md:flex-row m-3">

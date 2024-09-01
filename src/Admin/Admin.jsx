@@ -12,12 +12,14 @@ const Admin = () => {
     const describeProblem = form.describeProblem.value;
     const outerInputProblem = form.outerInputProblem.value;
     const innerInputProblem = form.innerInputProblem.value;
+    const inputCodeLength = form.inputCodeLength.value;
     const outputProblem = form.outputProblem.value;
     const problemset = {
       problemName: problemName,
       describeProblem: describeProblem,
       outerInputProblem: outerInputProblem,
       innerInputProblem: innerInputProblem,
+      inputCodeLength: inputCodeLength,
       outputProblem: outputProblem,
     };
     setCreateProblem(problemset);
@@ -39,17 +41,6 @@ const Admin = () => {
         </div>
         <div>
           <form onSubmit={handleProblem}>
-            <div className="form-control mt-2">
-              <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
-                Problem Number
-              </h1>
-              <input
-                type="text"
-                name="problemName"
-                className="grow w-full h-10 border-2 border-primary rounded-lg"
-                required
-              />
-            </div>
             <div className="form-control mt-2">
               <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
                 Problem Name
@@ -83,6 +74,7 @@ const Admin = () => {
                 required
               />
             </div>
+
             <div className="form-control mt-2">
               <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
                 Inner Input
@@ -91,6 +83,17 @@ const Admin = () => {
                 type="text"
                 name="innerInputProblem"
                 className="grow w-full h-10 border-2 border-primary rounded-lg"
+              />
+            </div>
+            <div className="form-control mt-2">
+              <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
+                Input code length
+              </h1>
+              <input
+                type="number"
+                name="inputCodeLength"
+                className="grow w-full h-10 border-2 border-primary rounded-lg"
+                required
               />
             </div>
             <div className="form-control mt-2">
