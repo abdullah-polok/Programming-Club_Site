@@ -37,6 +37,10 @@ const AuthProvider = ({ children }) => {
   ////extra login
   const provider = new GoogleAuthProvider();
 
+  //////////Contest score and timer/////////
+
+  //////////////End contest scroe and time////////////////////
+
   /////Setup timer for problem
 
   const [endTime, setEndTime] = useState(() => {
