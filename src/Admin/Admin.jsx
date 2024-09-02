@@ -19,6 +19,7 @@ const Admin = () => {
     const innerInputProblem = form.innerInputProblem.value;
     const inputCodeLength = form.inputCodeLength.value;
     const outputProblem = form.outputProblem.value;
+    const date = form.date.value;
     const problemset = {
       problemName: problemName,
       describeProblem: describeProblem,
@@ -26,6 +27,7 @@ const Admin = () => {
       innerInputProblem: innerInputProblem,
       inputCodeLength: inputCodeLength,
       outputProblem: outputProblem,
+      date: date,
     };
     setCreateProblem(problemset);
     await handleCreateProblem();
@@ -112,6 +114,18 @@ const Admin = () => {
                 required
               />
             </div>
+            <div className="form-control mt-2">
+              <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
+                Date
+              </h1>
+              <input
+                type="text"
+                name="date"
+                className="grow w-full h-20 border-2 border-primary rounded-lg"
+                required
+              />
+            </div>
+
             <div className=" flex justify-center">
               <button className="form-control   mt-4 btn btn-sm btn-primary">
                 Submit
@@ -124,7 +138,7 @@ const Admin = () => {
             </h1>
             <div>
               <button
-                className="btn btn-sm mr-2 btn-primary"
+                className="btn btn-sm mr-2 btn-primary mt-4"
                 onClick={startCountdown}
               >
                 Start Countdown

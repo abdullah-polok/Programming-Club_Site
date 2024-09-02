@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import CalenderCom from "./CalenderCom";
 import event from "../assets/images/Events-pana.png";
 import eventani from "../assets/images/hand-coding-animate.svg";
@@ -9,8 +9,10 @@ import Typography from "@mui/material/Typography";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const EventCom = () => {
+  const { isCountdownActive } = useContext(AuthContext);
   return (
     <div className="mt-36">
       <div className="content-title">
@@ -37,13 +39,17 @@ const EventCom = () => {
                 <Typography>Weekly Events</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
-                  <Link to={"/events"}>Event:1</Link>
-                </Typography>
-                <br />
-                <Typography>
-                  <Link to={"/events"}>Event:2</Link>
-                </Typography>
+                {isCountdownActive ? (
+                  <Typography>
+                    <Link className="text-[#7c8deb]" to={"/events"}>
+                      Weekly Event open
+                    </Link>
+                  </Typography>
+                ) : (
+                  <Typography>
+                    <Link to={"/events"}>Open Weekly Event</Link>
+                  </Typography>
+                )}
               </AccordionDetails>
             </Accordion>
           </div>

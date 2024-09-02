@@ -85,6 +85,7 @@ const AuthProvider = ({ children }) => {
         innerInputProblem,
         inputCodeLength,
         outputProblem,
+        date,
       } = createProblem;
 
       const dataToStore = {
@@ -94,6 +95,7 @@ const AuthProvider = ({ children }) => {
         innerInputProblem,
         inputCodeLength,
         outputProblem,
+        date,
       };
       console.log("Data Stored", dataToStore);
       const docRef = await addDoc(collection(db, "problemsData"), {
