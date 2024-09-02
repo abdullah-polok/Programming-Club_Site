@@ -2,8 +2,13 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 const Admin = () => {
-  const { setCreateProblem, checkStoredProblem, handleCreateProblem } =
-    useContext(AuthContext);
+  const {
+    setCreateProblem,
+    checkStoredProblem,
+    handleCreateProblem,
+    startCountdown,
+    resetCountdown,
+  } = useContext(AuthContext);
 
   const handleProblem = async (e) => {
     e.preventDefault();
@@ -108,11 +113,27 @@ const Admin = () => {
               />
             </div>
             <div className=" flex justify-center">
-              <button className="form-control   mt-4 btn btn-primary">
+              <button className="form-control   mt-4 btn btn-sm btn-primary">
                 Submit
               </button>
             </div>
           </form>
+          <div className="mt-10">
+            <h1 className="text-sm md:text-lg lg:text-2xl font-semibold text-[#7c8deb]">
+              Set Contest Timer
+            </h1>
+            <div>
+              <button
+                className="btn btn-sm mr-2 btn-primary"
+                onClick={startCountdown}
+              >
+                Start Countdown
+              </button>
+              <button className="btn btn-sm " onClick={resetCountdown}>
+                Reset Countdown
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

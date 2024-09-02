@@ -21,6 +21,8 @@ import {
 
 export const AuthContext = createContext(null);
 
+const TOTAL_DURATION_MINUTES = 120;
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -37,14 +39,12 @@ const AuthProvider = ({ children }) => {
 
   /////Setup timer for problem
 
-  // Example total duration in minutes
-  const TOTAL_DURATION_MINUTES = 60; // Modify this as per your requirement
-
-  // Countdown state
   const [endTime, setEndTime] = useState(() => {
     const savedEndTime = localStorage.getItem("globalEndTime");
     return savedEndTime ? parseInt(savedEndTime, 10) : null;
   });
+
+  const [isCountdownActive, setIsCountdownActive] = useState(() => !!endTime);
 
   // Function to start the countdown
   const startCountdown = () => {
@@ -52,20 +52,22 @@ const AuthProvider = ({ children }) => {
       new Date().getTime() + TOTAL_DURATION_MINUTES * 60 * 1000;
     setEndTime(newEndTime);
     localStorage.setItem("globalEndTime", newEndTime);
+    setIsCountdownActive(true);
   };
-
-  useEffect(() => {
-    if (!endTime) {
-      startCountdown(); // Initialize countdown if not already started
-    }
-  }, [endTime]);
 
   // Function to reset the countdown
   const resetCountdown = () => {
     localStorage.removeItem("globalEndTime");
     setEndTime(null);
-    startCountdown();
+    setIsCountdownActive(false);
   };
+
+  useEffect(() => {
+    // Reset countdown if the time has already expired on load
+    if (endTime && new Date().getTime() >= endTime) {
+      resetCountdown();
+    }
+  }, [endTime]);
 
   /////////////End of timer/////////////
 
@@ -246,6 +248,7 @@ const AuthProvider = ({ children }) => {
     codeLength,
     setCodeLength,
     endTime,
+    isCountdownActive,
     startCountdown,
     resetCountdown,
   };
