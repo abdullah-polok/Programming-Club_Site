@@ -14,7 +14,7 @@ const CompilerJudge = () => {
     setOutputCode,
     codeLength,
     setCodeLength,
-    isCountdownActive,
+    countdownDate,
   } = useContext(AuthContext);
   useEffect(() => {
     localStorage.setItem("input", input);
@@ -127,7 +127,7 @@ const CompilerJudge = () => {
               </select>
             </div>
             <div className="flex space-x-2">
-              {user && isCountdownActive && (
+              {user && (
                 <button
                   type="submit"
                   className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"

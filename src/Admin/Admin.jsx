@@ -43,9 +43,15 @@ const Admin = () => {
   const handleStartCount = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const maxtime = form.maxtime.value;
-    const maxtimeInt = parseInt(maxtime);
-    await addDoc(collection(db, "contestTimeSet"), { maxtimeInt });
+    const starTime = form.StartTime.value;
+    const endTime = form.endTime.value;
+    const timeDuration = form.timeDuration.value;
+    console.log(starTime, endTime);
+    await addDoc(collection(db, "contestTimeSet"), {
+      starTime,
+      endTime,
+      timeDuration,
+    });
     e.target.reset();
   };
   return (
@@ -165,11 +171,33 @@ const Admin = () => {
                 <form onSubmit={handleStartCount}>
                   <div className="form-control mt-2">
                     <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
-                      Maximum contest time
+                      Contest starting time
                     </h1>
                     <input
-                      type="number"
-                      name="maxtime"
+                      type="text"
+                      name="StartTime"
+                      className="grow w-full h-10 border-2 border-primary rounded-lg"
+                      required
+                    />
+                  </div>
+                  <div className="form-control mt-2">
+                    <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
+                      Contest ending time
+                    </h1>
+                    <input
+                      type="text"
+                      name="endTime"
+                      className="grow w-full h-10 border-2 border-primary rounded-lg"
+                      required
+                    />
+                  </div>
+                  <div className="form-control mt-2">
+                    <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
+                      Time Duration
+                    </h1>
+                    <input
+                      type="text"
+                      name="timeDuration"
                       className="grow w-full h-10 border-2 border-primary rounded-lg"
                       required
                     />
@@ -182,12 +210,6 @@ const Admin = () => {
                 </form>
               </div>
             </div>
-            <button
-              className="btn btn-sm btn-primary mt-4 "
-              onClick={resetCountdown}
-            >
-              Reset Countdown
-            </button>
           </div>
         </div>
       </div>

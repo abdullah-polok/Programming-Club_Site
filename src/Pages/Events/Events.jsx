@@ -3,11 +3,10 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 import noevent from "../../assets/images/404 error with people holding the numbers-amico.svg";
 const Events = () => {
-  const { startCountdown, timeDuration } = useContext(AuthContext);
-  console.log("INsie event", timeDuration);
+  const { startCountdown, countdownDate } = useContext(AuthContext);
   return (
     <div>
-      {timeDuration ? (
+      {countdownDate ? (
         <div className="mt-4 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-300 to-blue-400 text-white">
           <div className="p-10 flex items-center justify-between ">
             <div>

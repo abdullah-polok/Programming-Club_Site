@@ -33,6 +33,8 @@ const AuthProvider = ({ children }) => {
   const [codeLength, setCodeLength] = useState(null);
   const [timeTaken, setTimeTaken] = useState(null);
   const [problemStatus, setProblemStatus] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
   const [timeDuration, setTimeDuration] = useState(null);
   ////extra login
   const provider = new GoogleAuthProvider();
@@ -54,14 +56,30 @@ const AuthProvider = ({ children }) => {
 
       // Log all problems data
       // console.log(problems);
-      console.log(problemsTime[0]?.maxtimeInt);
-      setTimeDuration(problemsTime[0]?.maxtimeInt);
-      console.log(timeDuration);
+      // console.log(problemsTime[0]?.starTime);
+
+      // console.log(problemsTime[0]?.endTime);
+      setStartTime(new Date(problemsTime[0]?.starTime));
+      setEndTime(new Date(problemsTime[0]?.endTime));
+      setTimeDuration(parseInt(problemsTime[0]?.timeDuration));
       // Return problems array if needed
     } catch (error) {
       console.log("Error fetching products:", error);
     }
   };
+  const calculateTimeLeft = () => {
+    if (!startTime || !endTime) return 0;
+    const currentTime = new Date();
+    // If current time is before start time, show countdown to start time
+    if (currentTime < startTime) return startTime;
+    // If current time is between start and end time, show countdown to end time
+    if (currentTime >= startTime && currentTime <= endTime) return endTime;
+    // If current time is past the end time, countdown has finished
+    return null;
+  };
+
+  const countdownDate = calculateTimeLeft();
+
   const handleFinishedContest = async () => {
     console.log("Finished contest");
     const firstscores = localStorage.getItem("firstscores");
@@ -92,14 +110,9 @@ const AuthProvider = ({ children }) => {
     outputProblem,
     result
   ) => {
+    console.log("Time Duration,", timeDuration);
+    console.log("timeTaken", timeTaken);
     setProblemStatus(true);
-    console.log(
-      problemNum,
-      codeLength,
-      inputCodeLengthInt,
-      outputProblem,
-      result
-    );
     const problemNumber = parseInt(problemNum);
     const outputProblemIn = parseInt(outputProblem);
     const resultIn = parseInt(result);
@@ -130,45 +143,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const getProblemScrore = () => {};
-
-  //////////////End contest scroe and time////////////////////
-
-  /////Setup timer for problem
-
-  const [endTime, setEndTime] = useState(() => {
-    const savedEndTime = localStorage.getItem("globalEndTime");
-    return savedEndTime ? parseInt(savedEndTime, 10) : null;
-  });
-  const [isCountdownActive, setIsCountdownActive] = useState(() => !!endTime);
-
-  // Function to start the countdown
-  const startCountdown = () => {
-    const newEndTime = new Date().getTime() + timeDuration * 60 * 1000;
-    setEndTime(newEndTime);
-    localStorage.setItem("globalEndTime", newEndTime);
-    setIsCountdownActive(true);
-  };
-
-  // Function to reset the countdown
-  const resetCountdown = () => {
-    console.log("okey");
-    localStorage.removeItem("globalEndTime");
-    setEndTime(null);
-    setIsCountdownActive(false);
-    console.log(
-      localStorage.getItem("firstscores"),
-      localStorage.getItem("secondscores")
-    );
-  };
-
-  useEffect(() => {
-    // Reset countdown if the time has already expired on load
-    if (endTime && new Date().getTime() >= endTime) {
-      resetCountdown();
-    }
-  }, [endTime]);
-
-  /////////////End of timer/////////////
 
   ////Start Probelem sevtion>>>>>>>
 
@@ -325,9 +299,15 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (!checkStoredProblem) {
       getStudent();
-      setContestTime();
     }
   }, [user]);
+  useEffect(() => {
+    setContestTime();
+  }, [user]);
+
+  if (countdownDate == null) {
+    console.log("Probelem will be delete");
+  }
 
   const userInfo = {
     user,
@@ -353,19 +333,18 @@ const AuthProvider = ({ children }) => {
     setOutputCode,
     codeLength,
     setCodeLength,
-    endTime,
-    isCountdownActive,
-    startCountdown,
-    resetCountdown,
     CreateProblemScore,
     getProblemScrore,
-    timeDuration,
     timeTaken,
     setTimeTaken,
     problemStatus,
     setProblemStatus,
     handleFinishedContest,
+    startTime,
+    endTime,
+    countdownDate,
     timeDuration,
+    setTimeDuration,
   };
 
   // console.log(problemCollections);
