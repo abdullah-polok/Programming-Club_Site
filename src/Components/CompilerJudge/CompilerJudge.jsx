@@ -8,8 +8,14 @@ const CompilerJudge = () => {
     localStorage.getItem("language_Id") || 2
   );
   const [userInput, setUserInput] = useState("");
-  const { user, outputCode, setOutputCode, codeLength, setCodeLength } =
-    useContext(AuthContext);
+  const {
+    user,
+    outputCode,
+    setOutputCode,
+    codeLength,
+    setCodeLength,
+    isCountdownActive,
+  } = useContext(AuthContext);
   useEffect(() => {
     localStorage.setItem("input", input);
   }, [input]);
@@ -43,7 +49,7 @@ const CompilerJudge = () => {
         headers: {
           "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
           "x-rapidapi-key":
-            "212ff78806mshdd4c132c33f2babp16ddefjsnc318071839a8", // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
+            "86f0b2e820msh52efceface10086p15274ejsn68d810d61b61", // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
           "content-type": "application/json",
         },
         body: JSON.stringify({
@@ -75,7 +81,7 @@ const CompilerJudge = () => {
           headers: {
             "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
             "x-rapidapi-key":
-              "212ff78806mshdd4c132c33f2babp16ddefjsnc318071839a8",
+              "86f0b2e820msh52efceface10086p15274ejsn68d810d61b61",
             // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
             "content-type": "application/json",
           },
@@ -121,7 +127,7 @@ const CompilerJudge = () => {
               </select>
             </div>
             <div className="flex space-x-2">
-              {user && (
+              {user && isCountdownActive && (
                 <button
                   type="submit"
                   className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"

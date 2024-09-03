@@ -1,8 +1,7 @@
-import { RouterProvider } from "react-router-dom";
-import Navbar from "./Components/Headers/Navbar";
-import Header from "./Components/Headers/Navbar";
+import { RouterProvider, useLocation } from "react-router-dom";
 import router from "./RouterProvider/Router";
 import AuthProvider from "./AuthProvider/AuthProvider";
+
 function App() {
   return (
     <>

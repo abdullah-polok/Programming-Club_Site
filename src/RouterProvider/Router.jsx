@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, useLocation } from "react-router-dom";
 import Main from "../Layout/Main";
 import Home from "../Pages/Home/Home";
 import Events from "../Pages/Events/Events";
@@ -16,6 +16,7 @@ import Error from "../Pages/Error/Error";
 import ProblemSets from "../Pages/Events/ProblemSets/ProblemSets";
 import PerProblem from "../Pages/Events/ProblemSets/PerProblem";
 import ProblemDetails from "../Pages/Events/ProblemSets/ProblemDetails";
+
 const router = createBrowserRouter([
   {
     path: "/",

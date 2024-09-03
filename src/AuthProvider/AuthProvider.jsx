@@ -12,16 +12,13 @@ import {
   doc,
   getDocs,
   collection,
-  query,
-  where,
   setDoc,
   getDoc,
   addDoc,
 } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
 
 export const AuthContext = createContext(null);
-
-const TOTAL_DURATION_MINUTES = 120;
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -34,10 +31,82 @@ const AuthProvider = ({ children }) => {
   const [eachProblem, setEachProblem] = useState({});
   const [outputCode, setOutputCode] = useState({});
   const [codeLength, setCodeLength] = useState(null);
+  const [timeTaken, setTimeTaken] = useState(null);
+  const [problemStatus, setProblemStatus] = useState(false);
   ////extra login
   const provider = new GoogleAuthProvider();
 
   //////////Contest score and timer/////////
+  const timeDuration = parseInt(localStorage.getItem("MaxContestTime"));
+
+  const handleFinishedContest = async () => {
+    console.log("Finished contest");
+    const firstscores = localStorage.getItem("firstscores");
+    const secondscores = localStorage.getItem("secondscores");
+    const thirdscores = localStorage.getItem("thirdscores");
+    const forthscores = localStorage.getItem("forthscores");
+    const name = profileData.name;
+    const email = profileData.email;
+    const faculty = profileData.faculty;
+    const scoreInfo = {
+      name,
+      firstscores,
+      secondscores,
+      thirdscores,
+      forthscores,
+      email,
+      faculty,
+    };
+    console.log(scoreInfo);
+    const docRef = await addDoc(collection(db, "participantInfo"), {
+      scoreInfo,
+    });
+  };
+  const CreateProblemScore = (
+    problemNum,
+    codeLength,
+    inputCodeLengthInt,
+    outputProblem,
+    result
+  ) => {
+    setProblemStatus(true);
+    console.log(
+      problemNum,
+      codeLength,
+      inputCodeLengthInt,
+      outputProblem,
+      result
+    );
+    const problemNumber = parseInt(problemNum);
+    const outputProblemIn = parseInt(outputProblem);
+    const resultIn = parseInt(result);
+
+    if (codeLength > inputCodeLengthInt && outputProblemIn === resultIn) {
+      if (problemNumber === 1) {
+        const firstscores =
+          100 * (1 - (timeDuration - timeTaken) / timeDuration);
+        console.log(firstscores);
+        localStorage.setItem("firstscores", firstscores);
+      } else if (problemNumber === 2) {
+        const Secondscores =
+          200 * (1 - (timeDuration - timeTaken) / timeDuration);
+        console.log(Secondscores);
+        localStorage.setItem("secondscores", Secondscores);
+      } else if (problemNumber === 3) {
+        const Thirdscores =
+          300 * (1 - (timeDuration - timeTaken) / timeDuration);
+        localStorage.setItem("thirdscores", Thirdscores);
+      } else if (problemNumber === 4) {
+        const Forthscores =
+          400 * (1 - (timeDuration - timeTaken) / timeDuration);
+        localStorage.setItem("forthscores", Forthscores);
+      }
+    } else {
+      console.log("Not Assign ");
+    }
+  };
+
+  const getProblemScrore = () => {};
 
   //////////////End contest scroe and time////////////////////
 
@@ -47,13 +116,11 @@ const AuthProvider = ({ children }) => {
     const savedEndTime = localStorage.getItem("globalEndTime");
     return savedEndTime ? parseInt(savedEndTime, 10) : null;
   });
-
   const [isCountdownActive, setIsCountdownActive] = useState(() => !!endTime);
 
   // Function to start the countdown
   const startCountdown = () => {
-    const newEndTime =
-      new Date().getTime() + TOTAL_DURATION_MINUTES * 60 * 1000;
+    const newEndTime = new Date().getTime() + timeDuration * 60 * 1000;
     setEndTime(newEndTime);
     localStorage.setItem("globalEndTime", newEndTime);
     setIsCountdownActive(true);
@@ -61,9 +128,14 @@ const AuthProvider = ({ children }) => {
 
   // Function to reset the countdown
   const resetCountdown = () => {
+    console.log("okey");
     localStorage.removeItem("globalEndTime");
     setEndTime(null);
     setIsCountdownActive(false);
+    console.log(
+      localStorage.getItem("firstscores"),
+      localStorage.getItem("secondscores")
+    );
   };
 
   useEffect(() => {
@@ -83,6 +155,7 @@ const AuthProvider = ({ children }) => {
     try {
       // Destructure email and password from userData
       const {
+        problemNumber,
         problemName,
         describeProblem,
         outerInputProblem,
@@ -93,6 +166,7 @@ const AuthProvider = ({ children }) => {
       } = createProblem;
 
       const dataToStore = {
+        problemNumber,
         problemName,
         describeProblem,
         outerInputProblem,
@@ -257,6 +331,14 @@ const AuthProvider = ({ children }) => {
     isCountdownActive,
     startCountdown,
     resetCountdown,
+    CreateProblemScore,
+    getProblemScrore,
+    timeDuration,
+    timeTaken,
+    setTimeTaken,
+    problemStatus,
+    setProblemStatus,
+    handleFinishedContest,
   };
 
   // console.log(problemCollections);

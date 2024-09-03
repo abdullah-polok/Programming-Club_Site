@@ -4,8 +4,8 @@ import PerProblem from "./PerProblem";
 import { Link } from "react-router-dom";
 import noevent from "../../../assets/images/404 error with people holding the numbers-amico.svg";
 const ProblemSets = () => {
-  const { problemCollections, isCountdownActive } = useContext(AuthContext);
-  console.log(isCountdownActive);
+  const { problemCollections, isCountdownActive, handleFinishedContest } =
+    useContext(AuthContext);
   return (
     <>
       {isCountdownActive ? (
@@ -22,6 +22,14 @@ const ProblemSets = () => {
               perProblem={perProblem.dataToStore}
             ></PerProblem>
           ))}
+          <div className="flex justify-center mt-4">
+            <button
+              onClick={handleFinishedContest}
+              className="btn btn-warning "
+            >
+              Finished
+            </button>
+          </div>
         </div>
       ) : (
         <div>

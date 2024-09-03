@@ -13,6 +13,7 @@ const Admin = () => {
   const handleProblem = async (e) => {
     e.preventDefault();
     const form = e.target;
+    const problemNumber = form.problemNumber.value;
     const problemName = form.problemName.value;
     const describeProblem = form.describeProblem.value;
     const outerInputProblem = form.outerInputProblem.value;
@@ -21,6 +22,7 @@ const Admin = () => {
     const outputProblem = form.outputProblem.value;
     const date = form.date.value;
     const problemset = {
+      problemNumber: problemNumber,
       problemName: problemName,
       describeProblem: describeProblem,
       outerInputProblem: outerInputProblem,
@@ -35,6 +37,16 @@ const Admin = () => {
       e.target.reset();
     }
   };
+
+  const handleStartCount = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const maxtime = form.maxtime.value;
+    const maxtimeInt = parseInt(maxtime);
+    localStorage.setItem("MaxContestTime", maxtime);
+    startCountdown();
+    e.target.reset();
+  };
   return (
     <div>
       <div className="divider divider-primary text-center font-semibold text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
@@ -48,6 +60,17 @@ const Admin = () => {
         </div>
         <div>
           <form onSubmit={handleProblem}>
+            <div className="form-control mt-2">
+              <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
+                Problem Number
+              </h1>
+              <input
+                type="text"
+                name="problemNumber"
+                className="grow w-full h-10 border-2 border-primary rounded-lg"
+                required
+              />
+            </div>
             <div className="form-control mt-2">
               <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
                 Problem Name
@@ -137,16 +160,33 @@ const Admin = () => {
               Set Contest Timer
             </h1>
             <div>
-              <button
-                className="btn btn-sm mr-2 btn-primary mt-4"
-                onClick={startCountdown}
-              >
-                Start Countdown
-              </button>
-              <button className="btn btn-sm " onClick={resetCountdown}>
-                Reset Countdown
-              </button>
+              <div>
+                <form onSubmit={handleStartCount}>
+                  <div className="form-control mt-2">
+                    <h1 className="input  input-sm w-full max-w-xs text-left gap-2 text-xs md:text-base lg:text-lg">
+                      Maximum contest time
+                    </h1>
+                    <input
+                      type="number"
+                      name="maxtime"
+                      className="grow w-full h-10 border-2 border-primary rounded-lg"
+                      required
+                    />
+                  </div>
+                  <div className=" flex items-center">
+                    <button className="form-control   mt-4 btn btn-sm btn-primary">
+                      Start Countdown
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+            <button
+              className="btn btn-sm btn-primary mt-4 "
+              onClick={resetCountdown}
+            >
+              Reset Countdown
+            </button>
           </div>
         </div>
       </div>

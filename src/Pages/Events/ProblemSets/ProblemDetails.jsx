@@ -6,12 +6,13 @@ import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import CountDownTime from "../../../../Service/CountDown/CountDownTime";
 
 const ProblemDetails = () => {
-  const { outputCode, codeLength } = useContext(AuthContext);
+  const { outputCode, codeLength, CreateProblemScore, handleFinishedContest } =
+    useContext(AuthContext);
   const { result } = outputCode;
   // console.log("inside code details", codeLength);
-
   const location = useLocation();
   const {
+    problemNumber,
     problemName,
     describeProblem,
     innerInputProblem,
@@ -51,10 +52,11 @@ const ProblemDetails = () => {
             {outputProblem}
           </p>
         </div>
-        <div className="text-xs md:text-base lg:text-lg mt-12">
+        {/* <div className="text-xs md:text-base lg:text-lg mt-12">
           <h1 className="text-lg font-semibold">Status</h1>
           {codeLength > inputCodeLengthInt && outputProblem === result ? (
             <p
+              onClick={CreateProblemScore(problemNumber)}
               hidden={result ? false : true}
               className="text-xs md:text-sm lg:text-lg w-14 text-green-700  bg-green-400 px-2 font-bold"
             >
@@ -68,9 +70,25 @@ const ProblemDetails = () => {
               Fail
             </p>
           )}
-        </div>
+        </div> */}
         <div className="mt-10">
           <CompilerJudge></CompilerJudge>
+        </div>
+        <div className="flex justify-center">
+          <button
+            onClick={() =>
+              CreateProblemScore(
+                problemNumber,
+                codeLength,
+                inputCodeLengthInt,
+                outputProblem,
+                result
+              )
+            }
+            className="btn btn-primary mx-2"
+          >
+            Submit code
+          </button>
         </div>
       </div>
     </div>
