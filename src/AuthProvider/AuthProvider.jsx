@@ -33,12 +33,35 @@ const AuthProvider = ({ children }) => {
   const [codeLength, setCodeLength] = useState(null);
   const [timeTaken, setTimeTaken] = useState(null);
   const [problemStatus, setProblemStatus] = useState(false);
+  const [timeDuration, setTimeDuration] = useState(null);
   ////extra login
   const provider = new GoogleAuthProvider();
 
   //////////Contest score and timer/////////
-  const timeDuration = parseInt(localStorage.getItem("MaxContestTime"));
+  const setContestTime = async () => {
+    try {
+      // Reference to the 'problems' collection
+      const problemCollectionRef = collection(db, "contestTimeSet");
 
+      // Get all documents in the 'problems' collection
+      const querySnapshot = await getDocs(problemCollectionRef);
+
+      // Iterate over each document in the collection
+      const problemsTime = querySnapshot.docs.map((doc) => ({
+        id: doc.id, // Document ID
+        ...doc.data(), // Document data
+      }));
+
+      // Log all problems data
+      // console.log(problems);
+      console.log(problemsTime[0]?.maxtimeInt);
+      setTimeDuration(problemsTime[0]?.maxtimeInt);
+      console.log(timeDuration);
+      // Return problems array if needed
+    } catch (error) {
+      console.log("Error fetching products:", error);
+    }
+  };
   const handleFinishedContest = async () => {
     console.log("Finished contest");
     const firstscores = localStorage.getItem("firstscores");
@@ -300,7 +323,10 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (!checkStoredProblem) getStudent();
+    if (!checkStoredProblem) {
+      getStudent();
+      setContestTime();
+    }
   }, [user]);
 
   const userInfo = {
@@ -339,6 +365,7 @@ const AuthProvider = ({ children }) => {
     problemStatus,
     setProblemStatus,
     handleFinishedContest,
+    timeDuration,
   };
 
   // console.log(problemCollections);

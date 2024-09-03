@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../Firebase/firebase.config";
 const Admin = () => {
   const {
     setCreateProblem,
@@ -38,13 +40,12 @@ const Admin = () => {
     }
   };
 
-  const handleStartCount = (e) => {
+  const handleStartCount = async (e) => {
     e.preventDefault();
     const form = e.target;
     const maxtime = form.maxtime.value;
     const maxtimeInt = parseInt(maxtime);
-    localStorage.setItem("MaxContestTime", maxtime);
-    startCountdown();
+    await addDoc(collection(db, "contestTimeSet"), { maxtimeInt });
     e.target.reset();
   };
   return (
