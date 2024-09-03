@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const EventCom = () => {
-  const { user } = useContext(AuthContext);
+  const { countdownDate } = useContext(AuthContext);
   return (
     <div className="mt-36">
       <div className="content-title">
@@ -39,15 +39,19 @@ const EventCom = () => {
                 <Typography>Weekly Events</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
-                  <Link className="text-[#7c8deb]" to={"/events"}>
-                    Weekly Event open
-                  </Link>
-                </Typography>
-
-                <Typography>
-                  <Link to={"/events"}>Open Weekly Event</Link>
-                </Typography>
+                {countdownDate ? (
+                  <Typography>
+                    <Link className="text-[#7c8deb]" to={"/events"}>
+                      Weekly Event opened
+                    </Link>
+                  </Typography>
+                ) : (
+                  <Typography>
+                    <Link className="text-[#eb897c]" to={"/events"}>
+                      Weekly Event Closed
+                    </Link>
+                  </Typography>
+                )}
               </AccordionDetails>
             </Accordion>
           </div>
