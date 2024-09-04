@@ -17,7 +17,8 @@ import {
   addDoc,
 } from "firebase/firestore";
 import { useLocation } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
@@ -102,6 +103,7 @@ const AuthProvider = ({ children }) => {
     const docRef = await addDoc(collection(db, "participantInfo"), {
       scoreInfo,
     });
+    alert("Your problems submited successfully");
   };
   const CreateProblemScore = (
     problemNum,
@@ -254,7 +256,7 @@ const AuthProvider = ({ children }) => {
       await setDoc(doc(db, "usersData", uid), {
         dataToStore,
       });
-      console.log("student data save successfully");
+      alert("Your form filled up successfully");
     } catch (err) {
       console.log("Error in Storing", err);
     } finally {
@@ -304,11 +306,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setContestTime();
   }, [user]);
-
-  if (countdownDate == null) {
-    console.log("Probelem will be delete");
-  }
-
   const userInfo = {
     user,
     setUser,
@@ -346,9 +343,6 @@ const AuthProvider = ({ children }) => {
     timeDuration,
     setTimeDuration,
   };
-
-  // console.log(problemCollections);
-  // console.log("Loaded student data", );
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );

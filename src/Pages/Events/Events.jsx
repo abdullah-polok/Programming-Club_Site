@@ -3,15 +3,17 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 import noevent from "../../assets/images/404 error with people holding the numbers-amico.svg";
 const Events = () => {
-  const { startCountdown, countdownDate } = useContext(AuthContext);
+  const { startCountdown, countdownDate, profileData, startTime } =
+    useContext(AuthContext);
+  console.log(startTime);
   return (
     <div>
-      {countdownDate ? (
+      {countdownDate && profileData?.email ? (
         <div className="mt-4 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-300 to-blue-400 text-white">
           <div className="p-10 flex items-center justify-between ">
             <div>
               <h1 className="text-2xl">Weekly event</h1>
-              <p className="text-base">Date:28-12-2024</p>
+              <p className="text-base">Date:{startCountdown}</p>
             </div>
             <Link
               onClick={startCountdown}

@@ -5,7 +5,7 @@ import { MdEmail, MdAttachEmail } from "react-icons/md";
 import { SiOpslevel } from "react-icons/si";
 import { BsFillSignIntersectionFill } from "react-icons/bs";
 const Profile = () => {
-  const { profileData } = useContext(AuthContext);
+  const { profileData, countDownDate } = useContext(AuthContext);
   const { email, name, phonenumber, year, ukhemail, faculty } = profileData;
   return (
     <div>
@@ -33,6 +33,21 @@ const Profile = () => {
           <FaPhoneSquareAlt></FaPhoneSquareAlt>Phone Number: {phonenumber}
         </h1>
       </div>
+      {countDownDate === null ? (
+        <div>
+          <h1 className="text-lg md:text-xl lg:text-2xl text-center text-[#7c8deb] font-bold mt-4">
+            Weekly Contest scores
+          </h1>
+          <ol className="mt-4">
+            <li>1.{localStorage.getItem("firstscores")}/100</li>
+            <li>2.{localStorage.getItem("secondscores")}/200</li>
+            <li>3.{localStorage.getItem("thirdscores")}/300</li>
+            <li>4.{localStorage.getItem("forthscores")}/400</li>
+          </ol>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

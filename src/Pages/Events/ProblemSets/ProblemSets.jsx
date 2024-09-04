@@ -1,12 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import PerProblem from "./PerProblem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import noevent from "../../../assets/images/404 error with people holding the numbers-amico.svg";
 import CountDownTime from "../../../../Service/CountDown/CountDownTime";
 const ProblemSets = () => {
   const { problemCollections, handleFinishedContest, countdownDate } =
     useContext(AuthContext);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (countdownDate === null) navigate("/");
+  });
   return (
     <>
       <div>
@@ -27,10 +32,10 @@ const ProblemSets = () => {
                 perProblem={perProblem.dataToStore}
               ></PerProblem>
             ))}
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center">
               <button
                 onClick={handleFinishedContest}
-                className="btn btn-warning "
+                className=" btn btn-warning mt-4"
               >
                 Finished
               </button>
