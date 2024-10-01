@@ -39,7 +39,6 @@ const Gallery = () => {
           <motion.div>
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4 items-center justify-center p-5 ">
               {images.map((image) => {
-                console.log(image);
                 return (
                   <motion.div
                     whileHover={{ scale: 1.1, borderRadius: 12 }}

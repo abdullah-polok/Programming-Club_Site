@@ -17,11 +17,13 @@ const Main = () => {
     });
   }, []);
   return (
-    <div>
-      <Navbar></Navbar>
-      <Outlet></Outlet>
+    <>
+      <div className="max-w-full mx-auto px-3">
+        <Navbar></Navbar>
+        <Outlet></Outlet>
+      </div>
       <Footer></Footer>
-    </div>
+    </>
   );
 };
 

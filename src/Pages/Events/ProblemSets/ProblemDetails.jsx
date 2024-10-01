@@ -6,8 +6,13 @@ import noevent from "../../../assets/images/404 error with people holding the nu
 import CountDownTime from "../../../../Service/CountDown/CountDownTime";
 
 const ProblemDetails = () => {
-  const { outputCode, codeLength, CreateProblemScore, countdownDate } =
-    useContext(AuthContext);
+  const {
+    outputCode,
+    codeLength,
+    CreateProblemScore,
+    countdownDate,
+    isPassed,
+  } = useContext(AuthContext);
   const { result } = outputCode;
   // console.log("inside code details", codeLength);
   const location = useLocation();
@@ -29,7 +34,9 @@ const ProblemDetails = () => {
       {countdownDate ? (
         <div className="flex flex-col  p-2 border-2 border-primary rounded-lg">
           <div className="text-center text-xs md:text-lg lg:text-2xl font-bold">
-            <h1>{problemName}</h1>
+            <h1>
+              {problemNumber}.{problemName}
+            </h1>
           </div>
           <div className="text-xs md:text-base lg:text-lg">
             <p>{describeProblem}</p>
@@ -52,6 +59,9 @@ const ProblemDetails = () => {
             <p className="text-xs md:text-sm lg:text:sm  bg-slate-300 px-2">
               {outputProblem}
             </p>
+            <div className="bg-green-400 rounded-lg w-24 mt-4">
+              {isPassed && <p className="text-center">Passed</p>}
+            </div>
           </div>
           <div className="mt-10">
             <CompilerJudge></CompilerJudge>

@@ -51,7 +51,6 @@ const Footer = () => {
             </svg>
           </a>
         </div>
-        <img className="w-24" src={qr} />
       </nav>
     </footer>
   );

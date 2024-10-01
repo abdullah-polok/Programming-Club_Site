@@ -5,37 +5,28 @@ import "./Banner.css";
 
 import { Link } from "react-router-dom";
 
-const showAlert = () => {
-  MySwal.fire({
-    title: "Welcome",
-    html: `<div>
-        <img src=${qr} />
-     </div>`,
-    confirmButtonText: "Close",
-    width: "30%",
-  });
-};
-
 const Banner = () => {
   return (
-    <div className="heroSection relative flex flex-col items-center justify-center h-screen bg-cover bg-center bg-fixed">
+    <div className="heroSection flex flex-col items-center justify-center p-5 h-fit md:h-screen lg:h-screen bg-cover bg-center ">
       {/* <div className="absolute top-1 inset-0 bg-black opacity-35 h-screen rounded"></div> */}
-      <div className="absolute top-[30%]">
+
+      <div className="w-full  mb-10 mt-4">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 50, delay: 0.5 }}
-          className=" text-xl md:text-3xl lg:text-5xl text-white  font-bold bg-opacity-50 p-5 rounded mb-4 text-center"
+          className=" text-sm md:text-3xl lg:text-5xl text-white  font-bold bg-opacity-50  rounded  text-center"
         >
           WELCOME TO THE UKH PROGRAMMING CLUB />
         </motion.div>
       </div>
-      <div className="w-1/2 absolute top-[50%]">
+
+      <div className="w-3/4 px-10 mb-10 hidden md:block lg:block">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 50, delay: 1 }} // Adjusted delay to start after the first message
-          className=" text-sm md:text-base lg:text-lg text-white  p-5 text-center "
+          className=" text-sm md:text-base lg:text-lg text-white text-center "
         >
           <Typewriter
             words={[
@@ -50,7 +41,8 @@ const Banner = () => {
           />
         </motion.div>
       </div>
-      <div className="w-1/2 absolute top-[85%]">
+
+      <div className="">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -58,15 +50,9 @@ const Banner = () => {
           className="  text-sm md:text-base lg:text-lg text-white  p-5 text-center "
         >
           <div className="flex items-center justify-center">
-            {/* <button
-              onClick={showAlert}
-              className="btn  btn-sm md:btn-lg lg:btn-wide bg-white"
-            >
-              JOIN US
-            </button> */}
             <Link
               to={"/joinus"}
-              className="btn  btn-sm md:btn-lg lg:btn-wide bg-white"
+              className="btn  btn-xs md:btn-lg lg:btn-wide bg-white"
             >
               JOIN US
             </Link>

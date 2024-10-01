@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import { AuthContext } from "../../src/AuthProvider/AuthProvider";
-let callTime = 0;
+
 const CountDownTime = () => {
   const { problemStatus, setTimeTaken, startTime, endTime, countdownDate } =
     useContext(AuthContext);
@@ -9,16 +9,14 @@ const CountDownTime = () => {
   // console.log("Probelem status", problemStatus);
   const handleTime = (hours, minutes, seconds) => {
     // console.log("Hours", hours);
-    if (problemStatus && callTime <= 1) {
-      const hour = hours * 60;
-      const second = seconds / 60;
-      const totalTime = hour + minutes + second;
-      const totalTimeInt = parseFloat(totalTime.toFixed(3));
-      setTimeTaken(totalTimeInt);
-      callTime++;
-    }
+    // if (problemStatus) {
+    const hour = hours * 60;
+    const second = seconds / 60;
+    const totalTime = hour + minutes + second;
+    const totalTimeInt = parseFloat(totalTime.toFixed(3));
+    setTimeTaken(totalTimeInt);
+    // }
   };
-
   if (!startTime || !endTime) {
     return <p>Loading...</p>;
   }

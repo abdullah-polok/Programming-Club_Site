@@ -10,6 +10,7 @@ const Admin = () => {
     handleCreateProblem,
     startCountdown,
     resetCountdown,
+    resetTimer,
   } = useContext(AuthContext);
 
   const handleProblem = async (e) => {
@@ -59,9 +60,9 @@ const Admin = () => {
       <div className="divider divider-primary text-center font-semibold text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
         Admin Page
       </div>
-      <div>
+      <div className="mt-6">
         <div>
-          <h1 className="text-sm md:text-lg lg:text-2xl font-semibold text-[#7c8deb]">
+          <h1 className="text-sm md:text-lg lg:text-2xl text-center font-semibold text-[#7c8deb]">
             Create a problem
           </h1>
         </div>
@@ -163,9 +164,22 @@ const Admin = () => {
             </div>
           </form>
           <div className="mt-10">
-            <h1 className="text-sm md:text-lg lg:text-2xl font-semibold text-[#7c8deb]">
+            <h1 className="text-sm text-center md:text-lg lg:text-2xl font-semibold text-[#7c8deb]">
               Set Contest Timer
             </h1>
+            <div>
+              <h1 className="text-sm md:text-sm lg:text-lg font-semibold text-[#7c8deb]">
+                Visit this site for ISO time format
+              </h1>
+              <div className="m-4">
+                <a
+                  className="bg-indigo-100 p-2 rounded-lg"
+                  href="https://greenwichmeantime.com/articles/clocks/iso/"
+                >
+                  Greenwich Mean Time
+                </a>
+              </div>
+            </div>
             <div>
               <div>
                 <form onSubmit={handleStartCount}>
@@ -202,12 +216,20 @@ const Admin = () => {
                       required
                     />
                   </div>
-                  <div className=" flex items-center">
+                  <div className=" flex items-center justify-center">
                     <button className="form-control   mt-4 btn btn-sm btn-primary">
                       Start Countdown
                     </button>
                   </div>
                 </form>
+              </div>
+              <div className="flex justify-center mt-10">
+                <button
+                  onClick={resetTimer}
+                  className="form-control   mt-4 btn btn-sm btn-primary"
+                >
+                  Reset Countdown
+                </button>
               </div>
             </div>
           </div>

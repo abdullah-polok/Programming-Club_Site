@@ -43,13 +43,13 @@ const CompilerJudge = () => {
     outputText.innerHTML = "Creating Submission ...\n";
 
     const response = await fetch(
-      "https://judge0-ce.p.rapidapi.com/submissions",
+      "https://judge0-extra-ce.p.rapidapi.com/submissions",
       {
         method: "POST",
         headers: {
-          "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
           "x-rapidapi-key":
-            "86f0b2e820msh52efceface10086p15274ejsn68d810d61b61", // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
+            "86f0b2e820msh52efceface10086p15274ejsn68d810d61b61",
+          "x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com", // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
           "content-type": "application/json",
         },
         body: JSON.stringify({
@@ -75,13 +75,13 @@ const CompilerJudge = () => {
     ) {
       outputText.innerHTML = `Creating Submission ... \nSubmission Created ...\nChecking Submission Status\nstatus : ${jsonGetSolution.status.description}`;
       if (jsonResponse.token) {
-        let url = `https://judge0-ce.p.rapidapi.com/submissions/${jsonResponse.token}?base64_encoded=true`;
+        let url = `https://judge0-extra-ce.p.rapidapi.com/submissions/${jsonResponse.token}?base64_encoded=true`;
         const getSolution = await fetch(url, {
           method: "GET",
           headers: {
-            "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
             "x-rapidapi-key":
               "86f0b2e820msh52efceface10086p15274ejsn68d810d61b61",
+            "x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com",
             // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
             "content-type": "application/json",
           },
@@ -153,7 +153,10 @@ const CompilerJudge = () => {
 
         <div className="w-full md:w-1/2 flex flex-col bg-slate-300 rounded p-4 md:ml-3">
           <div className="flex flex-col h-1/2">
-            <label htmlFor="input" className="text-gray-300 mb-2">
+            <label
+              htmlFor="input"
+              className=" bg-green-600 text-center text-white mb-2 rounded-sm"
+            >
               Input
             </label>
             <textarea
@@ -163,7 +166,10 @@ const CompilerJudge = () => {
             ></textarea>
           </div>
           <div className="flex flex-col h-1/2">
-            <label htmlFor="output" className="text-gray-300">
+            <label
+              htmlFor="output"
+              className="bg-green-600 text-center text-white mb-2 rounded-sm"
+            >
               Output
             </label>
             <textarea

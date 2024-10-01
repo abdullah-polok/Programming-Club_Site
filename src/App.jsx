@@ -5,11 +5,9 @@ import AuthProvider from "./AuthProvider/AuthProvider";
 function App() {
   return (
     <>
-      <div className="max-w-7xl mx-auto px-3">
-        <AuthProvider>
-          <RouterProvider router={router}></RouterProvider>
-        </AuthProvider>
-      </div>
+      <AuthProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </AuthProvider>
     </>
   );
 }

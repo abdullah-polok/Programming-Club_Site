@@ -4,14 +4,34 @@ import PerProblem from "./PerProblem";
 import { Link, useNavigate } from "react-router-dom";
 import noevent from "../../../assets/images/404 error with people holding the numbers-amico.svg";
 import CountDownTime from "../../../../Service/CountDown/CountDownTime";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 const ProblemSets = () => {
   const { problemCollections, handleFinishedContest, countdownDate } =
     useContext(AuthContext);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (countdownDate === null) navigate("/");
-  });
+  const handleFinished = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, finised it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "finished!",
+          // text: "Your file has been deleted.",
+          icon: "success",
+        });
+        handleFinishedContest();
+        navigate("/");
+      }
+    });
+  };
   return (
     <>
       <div>
@@ -34,7 +54,7 @@ const ProblemSets = () => {
             ))}
             <div className="flex justify-center">
               <button
-                onClick={handleFinishedContest}
+                onClick={handleFinished}
                 className=" btn btn-warning mt-4"
               >
                 Finished

@@ -5,7 +5,6 @@ import noevent from "../../assets/images/404 error with people holding the numbe
 const Events = () => {
   const { startCountdown, countdownDate, profileData, startTime } =
     useContext(AuthContext);
-  console.log(startTime);
   return (
     <div>
       {countdownDate && profileData?.email ? (

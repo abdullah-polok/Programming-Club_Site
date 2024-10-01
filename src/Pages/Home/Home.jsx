@@ -4,6 +4,7 @@ import AboutUsCom from "../../Components/AboutUsCom";
 import EventCom from "../../Components/EventCom";
 import JoinUsCom from "../../Components/JoinUsCom";
 import Gallery from "../../Components/Gallery/Gallery";
+
 const Home = () => {
   return (
     <div>

@@ -15,11 +15,14 @@ import {
   setDoc,
   getDoc,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
-import { useLocation } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/src/sweetalert2.scss";
 import "react-toastify/dist/ReactToastify.css";
 export const AuthContext = createContext(null);
+
+////Main Project
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -37,6 +40,7 @@ const AuthProvider = ({ children }) => {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [timeDuration, setTimeDuration] = useState(null);
+  const [isPassed, setPassed] = useState(false);
   ////extra login
   const provider = new GoogleAuthProvider();
 
@@ -55,15 +59,9 @@ const AuthProvider = ({ children }) => {
         ...doc.data(), // Document data
       }));
 
-      // Log all problems data
-      // console.log(problems);
-      // console.log(problemsTime[0]?.starTime);
-
-      // console.log(problemsTime[0]?.endTime);
       setStartTime(new Date(problemsTime[0]?.starTime));
       setEndTime(new Date(problemsTime[0]?.endTime));
       setTimeDuration(parseInt(problemsTime[0]?.timeDuration));
-      // Return problems array if needed
     } catch (error) {
       console.log("Error fetching products:", error);
     }
@@ -81,30 +79,61 @@ const AuthProvider = ({ children }) => {
 
   const countdownDate = calculateTimeLeft();
 
+  const resetTimer = async () => {
+    const collectionRef = collection(db, "contestTimeSet");
+    const querySnapshot = await getDocs(collectionRef);
+
+    if (querySnapshot.empty) {
+      console.log("Collection is already empty.");
+      return;
+    }
+
+    // Delete each document in the collection
+    querySnapshot.forEach(async (documentSnapshot) => {
+      try {
+        await deleteDoc(doc(db, "contestTimeSet", documentSnapshot.id));
+        console.log(`Deleted document with ID: ${documentSnapshot.id}`);
+      } catch (error) {
+        console.error("Error deleting document: ", error);
+      }
+    });
+
+    console.log(`All documents in the  collection have been deleted.`);
+  };
+  ///////////ENd score and timer /////////////////////////
+
   const handleFinishedContest = async () => {
     console.log("Finished contest");
-    const firstscores = localStorage.getItem("firstscores");
-    const secondscores = localStorage.getItem("secondscores");
-    const thirdscores = localStorage.getItem("thirdscores");
-    const forthscores = localStorage.getItem("forthscores");
-    const name = profileData.name;
-    const email = profileData.email;
-    const faculty = profileData.faculty;
+    let firstscores = parseFloat(localStorage.getItem("firstscores"));
+    let secondscores = parseFloat(localStorage.getItem("secondscores"));
+    // let thirdscores = parseInt(localStorage.getItem("thirdscores"));
+    // let forthscores = parseInt(localStorage.getItem("forthscores"));
+
+    if (firstscores === NaN || firstscores === null) firstscores = 0;
+    if (secondscores === NaN || secondscores === null) secondscores = 0;
+    // if (thirdscores === NaN || thirdscores === null) thirdscores = 0;
+    // if (forthscores === NaN || forthscores === null) forthscores = 0;
+    console.log(firstscores, secondscores);
+    const avergerScore = (firstscores + secondscores) / 2;
+    console.log(avergerScore);
     const scoreInfo = {
-      name,
-      firstscores,
-      secondscores,
-      thirdscores,
-      forthscores,
-      email,
-      faculty,
+      name: profileData.name,
+      email: profileData.email,
+      avergerScore: avergerScore,
+      faculty: profileData.faculty,
     };
-    console.log(scoreInfo);
     const docRef = await addDoc(collection(db, "participantInfo"), {
       scoreInfo,
     });
-    alert("Your problems submited successfully");
+    Swal.fire({
+      title: "Great!",
+      text: "Your problems submited successfully",
+      icon: "success",
+    });
   };
+
+  //////Hanlde Score create///////
+
   const CreateProblemScore = (
     problemNum,
     codeLength,
@@ -121,32 +150,66 @@ const AuthProvider = ({ children }) => {
 
     if (codeLength > inputCodeLengthInt && outputProblemIn === resultIn) {
       if (problemNumber === 1) {
-        const firstscores =
-          100 * (1 - (timeDuration - timeTaken) / timeDuration);
-        console.log(firstscores);
+        let firstscores = 100 * (1 - (timeDuration - timeTaken) / timeDuration);
+
+        if (firstscores === 0 || firstscores === null) {
+          firstscores = 0;
+        }
+
         localStorage.setItem("firstscores", firstscores);
+        console.log(firstscores);
+        Swal.fire({
+          title: "Good job!",
+          text: "Your first Probelem score added",
+          icon: "success",
+        });
+        if (localStorage.getItem("firstscores")) setPassed(true);
       } else if (problemNumber === 2) {
-        const Secondscores =
+        let secondscores =
           200 * (1 - (timeDuration - timeTaken) / timeDuration);
-        console.log(Secondscores);
-        localStorage.setItem("secondscores", Secondscores);
+
+        if (secondscores === 0 || secondscores === null) {
+          secondscores = 0;
+        }
+        localStorage.setItem("secondscores", secondscores);
+        console.log(secondscores);
+        Swal.fire({
+          title: "Good job!",
+          text: "Your second Probelem score added",
+          icon: "success",
+        });
+        if (localStorage.getItem("secondscores")) setPassed(true);
       } else if (problemNumber === 3) {
-        const Thirdscores =
-          300 * (1 - (timeDuration - timeTaken) / timeDuration);
-        localStorage.setItem("thirdscores", Thirdscores);
+        let thirdscores = 300 * (1 - (timeDuration - timeTaken) / timeDuration);
+
+        if (thirdscores === 0 || thirdscores === null) {
+          thirdscores = 0;
+        }
+        localStorage.setItem("thirdscores", thirdscores);
+        Swal.fire({
+          title: "Good job!",
+          text: "Your third Probelem score added",
+          icon: "success",
+        });
+        if (localStorage.getItem("thirdscores")) setPassed(true);
       } else if (problemNumber === 4) {
-        const Forthscores =
-          400 * (1 - (timeDuration - timeTaken) / timeDuration);
-        localStorage.setItem("forthscores", Forthscores);
+        let forthscores = 400 * (1 - (timeDuration - timeTaken) / timeDuration);
+
+        if (forthscores === 0 || forthscores === null) {
+          forthscores = 0;
+        }
+        localStorage.setItem("forthscores", forthscores);
+        Swal.fire({
+          title: "Good job!",
+          text: "Your forth Probelem score added",
+          icon: "success",
+        });
+        if (localStorage.getItem("forthscores")) setPassed(true);
       }
-    } else {
-      console.log("Not Assign ");
     }
   };
 
-  const getProblemScrore = () => {};
-
-  ////Start Probelem sevtion>>>>>>>
+  ////Start Probelem section>>>>>>>
 
   const handleCreateProblem = async () => {
     setLoading(true);
@@ -228,7 +291,6 @@ const AuthProvider = ({ children }) => {
         console.log("Error fetching user data:", error);
       }
     } else {
-      console.log("User is not authenticated");
     }
   };
 
@@ -256,7 +318,11 @@ const AuthProvider = ({ children }) => {
       await setDoc(doc(db, "usersData", uid), {
         dataToStore,
       });
-      alert("Your form filled up successfully");
+      Swal.fire({
+        title: "Great!",
+        text: "Your form filled up successfully",
+        icon: "success",
+      });
     } catch (err) {
       console.log("Error in Storing", err);
     } finally {
@@ -303,6 +369,7 @@ const AuthProvider = ({ children }) => {
       getStudent();
     }
   }, [user]);
+
   useEffect(() => {
     setContestTime();
   }, [user]);
@@ -331,7 +398,6 @@ const AuthProvider = ({ children }) => {
     codeLength,
     setCodeLength,
     CreateProblemScore,
-    getProblemScrore,
     timeTaken,
     setTimeTaken,
     problemStatus,
@@ -342,7 +408,10 @@ const AuthProvider = ({ children }) => {
     countdownDate,
     timeDuration,
     setTimeDuration,
+    resetTimer,
+    isPassed,
   };
+  // console.log("Time:", timeTaken);
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );
