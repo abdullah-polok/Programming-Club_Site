@@ -11,10 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-firebase.js
-Firebase
-AdminRouter
-AuthProvider
+
 
 # Editor directories and files
 .vscode/*
