@@ -11,10 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
-Admin
-AdminRouter
-Firebase
-AuthProvider
+src/Admin
+src/AdminRouter
+src/Firebase
+src/AuthProvider
 
 # Editor directories and files
 .vscode/*
