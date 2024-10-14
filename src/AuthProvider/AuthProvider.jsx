@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -41,6 +42,7 @@ const AuthProvider = ({ children }) => {
   const [endTime, setEndTime] = useState(null);
   const [timeDuration, setTimeDuration] = useState(null);
   const [isPassed, setPassed] = useState(false);
+
   ////extra login
   const provider = new GoogleAuthProvider();
 
@@ -130,8 +132,13 @@ const AuthProvider = ({ children }) => {
       text: "Your problems submited successfully",
       icon: "success",
     });
+    localStorage.removeItem("input");
+    localStorage.removeItem("language_Id");
+    localStorage.removeItem("firstscores");
+    localStorage.removeItem("secondscores");
   };
 
+  // console.log(localStorage.getItem("firstscores"));
   //////Hanlde Score create///////
 
   const CreateProblemScore = (
@@ -156,7 +163,10 @@ const AuthProvider = ({ children }) => {
           firstscores = 0;
         }
 
-        localStorage.setItem("firstscores", firstscores);
+        localStorage.setItem(
+          "firstscores",
+          JSON.stringify({ firstscores: firstscores, status: "passed" })
+        );
         console.log(firstscores);
         Swal.fire({
           title: "Good job!",
@@ -171,7 +181,10 @@ const AuthProvider = ({ children }) => {
         if (secondscores === 0 || secondscores === null) {
           secondscores = 0;
         }
-        localStorage.setItem("secondscores", secondscores);
+        localStorage.setItem(
+          "secondscores",
+          JSON.stringify({ secondscores: secondscores, status: "passed" })
+        );
         console.log(secondscores);
         Swal.fire({
           title: "Good job!",
@@ -285,7 +298,7 @@ const AuthProvider = ({ children }) => {
           const studentData = userDocSnap.data().dataToStore;
           setProfileData(studentData);
         } else {
-          console.log("No user data found for this UID.");
+          // console.log("No user data found for this UID.");
         }
       } catch (error) {
         console.log("Error fetching user data:", error);
@@ -294,28 +307,23 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const addStudent = async () => {
+  const addStudent = (userData) => {
     setLoading(true);
-    console.log("Data inside API", studentdata);
+    console.log("Data inside API", userData);
     try {
       // Destructure email and password from userData
-      const { uid, name, email, phonenumber, faculty, year, ukhemail, role } =
-        studentdata;
-
+      const { uid, name, faculty, year, ukhemail } = userData;
       const dataToStore = {
         uid,
         name,
-        email,
-        phonenumber,
         faculty,
         year,
         ukhemail,
-        role,
       };
       console.log("Data Stored", dataToStore);
       // Store data in Firestore
       // await setDoc(doc(db, "usersData", name), dataToStore);
-      await setDoc(doc(db, "usersData", uid), {
+      setDoc(doc(db, "usersData", uid), {
         dataToStore,
       });
       Swal.fire({
@@ -340,6 +348,11 @@ const AuthProvider = ({ children }) => {
   const signInUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  const resetPassword = (email) => {
+    console.log(email);
+    return sendPasswordResetEmail(auth, email);
   };
 
   const loginUserPop = () => {
@@ -373,6 +386,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setContestTime();
   }, [user]);
+
   const userInfo = {
     user,
     setUser,
@@ -382,6 +396,7 @@ const AuthProvider = ({ children }) => {
     loginUserPop,
     logoutUser,
     createUser,
+    resetPassword,
     studentdata,
     setStudentData,
     addStudent,
@@ -411,7 +426,7 @@ const AuthProvider = ({ children }) => {
     resetTimer,
     isPassed,
   };
-  // console.log("Time:", timeTaken);
+
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );

@@ -2,7 +2,8 @@ import React from "react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [loginMes, setLoginMes] = useState("");
   const userInfo = useContext(AuthContext);
@@ -36,17 +37,20 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.message);
+        toast("Password is incorrect");
+        // console.log(err.message);
       });
   };
 
   return (
-    <div className="hero mt-10">
+    <div className="hero min-h-screen">
       <div className="hero-content flex-col">
         <div className="text-center">
-          <h1 className="text-5xl font-bold text-[#7c8deb]">Login now!</h1>
+          <h1 className="text-3xl  lg:text-5xl font-bold text-[#7c8deb]">
+            Login now
+          </h1>
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-slate-400 shadow-md">
           <form onSubmit={handleSignIn} className="card-body">
             <div className="form-control">
               <label className="label">
@@ -72,15 +76,19 @@ const Login = () => {
                 required
               />
               <label className="label">
-                <a href="#" className="label-text-alt link link-hover">
+                <Link
+                  to={"/resetpassword"}
+                  className="text-[#7c8deb] label-text-alt link link-hover"
+                >
                   Forgot password?
-                </a>
+                </Link>
               </label>
             </div>
             <div className="form-control mt-6">
               <button className="btn bg-[#7c8deb] text-white text-lg">
                 Login
               </button>
+              <ToastContainer></ToastContainer>
             </div>
           </form>
           <div className="flex justify-between px-8 py-10">
@@ -92,7 +100,7 @@ const Login = () => {
             </button> */}
           </div>
           <div className="text-center pb-5">
-            <Link to="/register" className="text-xl text-[#7c8deb]">
+            <Link to="/register" className="text-xl text-[#7c8deb] font-bold">
               Create An Account
             </Link>
           </div>

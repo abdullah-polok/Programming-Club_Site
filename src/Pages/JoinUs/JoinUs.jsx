@@ -4,36 +4,38 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import qr from "../../assets/images/qr-code.png";
+import { Link, useNavigate } from "react-router-dom";
 const JoinUs = () => {
-  const { user, addStudent, setStudentData, profileData } =
-    useContext(AuthContext);
+  const { user, addStudent, profileData } = useContext(AuthContext);
   const MySwal = withReactContent(Swal);
+  const navigate = useNavigate();
   // console.log("Profile Data join us",);
   const profileLength = Object.keys(profileData).length;
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const email = user?.email;
+    // const email = user?.email;
     const faculty = form.faculty.value;
     const year = form.year.value;
     const ukhemail = form.ukhemail.value;
-    const phonenumber = form.phonenumber.value;
+    // const phonenumber = form.phonenumber.value;
     const userData = {
       uid: user.uid,
       name: name,
-      email: email,
-      phonenumber: phonenumber,
       year: year,
       faculty: faculty,
       ukhemail: ukhemail,
-      role: "user",
     };
-
+    // role: "user",
     console.log("Inside the Join Function:", userData);
-    setStudentData(userData);
-    await addStudent();
-    // e.target.reset();
+    // setStudentData(userData);
+    addStudent(userData);
+    e.target.reset();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
   const handleScan = () => {
     MySwal.fire({
@@ -50,10 +52,13 @@ const JoinUs = () => {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col ">
         <div className="text-center ">
-          <h1 className="text-5xl font-bold">Join now!</h1>
+          <h1 className="text-3xl  lg:text-5xl font-bold text-[#7c8deb]">
+            Join now
+          </h1>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl p-4">
           <form onSubmit={handleSubmit} className=" shadow-md">
+            <div className="divider divider-primary">University's Details</div>
             <div className="form-control">
               <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
                 Full Name
@@ -66,7 +71,7 @@ const JoinUs = () => {
                 />
               </label>
             </div>
-            <div className="form-control mt-2">
+            {/* <div className="form-control mt-2">
               <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
                 Email
                 <input
@@ -77,8 +82,8 @@ const JoinUs = () => {
                   readOnly
                 />
               </label>
-            </div>
-            <div className="form-control mt-2">
+            </div> */}
+            {/* <div className="form-control mt-2">
               <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
                 Phone Number
                 <input
@@ -89,8 +94,7 @@ const JoinUs = () => {
                   required
                 />
               </label>
-            </div>
-            <div className="divider divider-primary">University's Details</div>
+            </div> */}
             <div className="form-control mt-2">
               <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
                 Faculty
@@ -128,12 +132,12 @@ const JoinUs = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <h1
+              {/* <h1
                 hidden={profileLength ? true : false}
                 className="text-red-600 text-center font-bold mb-2"
               >
                 Click two times on submit button
-              </h1>
+              </h1> */}
               <button
                 disabled={profileLength ? true : false}
                 className="btn btn-primary"
@@ -150,6 +154,11 @@ const JoinUs = () => {
           >
             Scan
           </button>
+          <div className="text-center mt-4">
+            <Link to="/" className="text-primary font-semibold">
+              Back to Home
+            </Link>
+          </div>
         </div>
       </div>
     </div>

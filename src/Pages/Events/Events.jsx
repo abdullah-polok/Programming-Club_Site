@@ -3,16 +3,18 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
 import noevent from "../../assets/images/404 error with people holding the numbers-amico.svg";
 const Events = () => {
-  const { startCountdown, countdownDate, profileData, startTime } =
+  const { startCountdown, countdownDate, profileData, user, startTime } =
     useContext(AuthContext);
+
+  console.log();
   return (
     <div>
-      {countdownDate && profileData?.email ? (
+      {countdownDate && profileData?.ukhemail ? (
         <div className="mt-4 rounded-lg bg-gradient-to-r from-indigo-500 via-purple-300 to-blue-400 text-white">
           <div className="p-10 flex items-center justify-between ">
             <div>
               <h1 className="text-2xl">Weekly event</h1>
-              <p className="text-base">Date:{startCountdown}</p>
+              {/* <p className="text-base">Date:{startCountdown}</p> */}
             </div>
             <Link
               onClick={startCountdown}
@@ -26,7 +28,7 @@ const Events = () => {
       ) : (
         <div>
           <div>
-            <h1 className="text-lg md:text-xl lg:text-2xl text-center text-[#7c8deb] font-bold">
+            <h1 className="text-lg md:text-xl lg:text-2xl text-center text-[#7c8deb] font-bold mt-4">
               Ups!... no event found
             </h1>
           </div>

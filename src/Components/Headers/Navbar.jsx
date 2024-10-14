@@ -56,7 +56,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="navbar">
+      <div className="navbar shadow-slate-400 shadow-md">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -82,7 +82,9 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-          <img src={ukhLogo} alt="" />
+          <Link to={"/"}>
+            <img src={ukhLogo} />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>

@@ -4,7 +4,7 @@ import JoinButton from "../JoinButton";
 import qr from "../../assets/images/qr-code.png";
 const Footer = () => {
   return (
-    <footer className="mt-36 footer bg-indigo-50 text-black px-10 py-5 rounded-md">
+    <footer className=" bottom-0  mt-36 footer bg-indigo-50 text-black px-10 py-5 rounded-md">
       <aside>
         <img src={logo} />
         <div>

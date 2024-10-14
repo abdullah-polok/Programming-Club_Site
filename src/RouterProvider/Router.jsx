@@ -16,6 +16,7 @@ import Error from "../Pages/Error/Error";
 import ProblemSets from "../Pages/Events/ProblemSets/ProblemSets";
 import PerProblem from "../Pages/Events/ProblemSets/PerProblem";
 import ProblemDetails from "../Pages/Events/ProblemSets/ProblemDetails";
+import ResetPassword from "../Pages/Auth/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/resetpassword",
+        element: <ResetPassword></ResetPassword>,
       },
       {
         path: "/leaderboard",

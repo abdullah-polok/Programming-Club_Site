@@ -1,11 +1,28 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import Editor from "@monaco-editor/react";
 
 const CompilerJudge = () => {
+  // C++ and Java code snippets
+  //   const snippets = {
+  //     cpp: `#include <iostream>
+  // using namespace std;
+
+  // int main() {
+  //     cout << "Hello, World! C++";
+  //     return 0;
+  // }`,
+  //     java: `public class Main {
+  //     public static void main(String[] args) {
+  //         System.out.println("Hello, World! Java");
+  //     }
+  // }`,
+  //   };
+
   const [input, setInput] = useState(localStorage.getItem("input") || "");
 
   const [languageId, setLanguageId] = useState(
-    localStorage.getItem("language_Id") || 2
+    localStorage.getItem("language_Id") || 54
   );
   const [userInput, setUserInput] = useState("");
   const {
@@ -24,12 +41,16 @@ const CompilerJudge = () => {
     localStorage.setItem("language_Id", languageId);
   }, [languageId]);
 
-  const handleInputChange = (event) => {
-    setInput(event.target.value);
+  const handleInputChange = (value, event) => {
+    // console.log(event.target.value);
+    setInput(value);
   };
-
-  const handleUserInputChange = (event) => {
-    setUserInput(event.target.value);
+  const removeCode = () => {
+    localStorage.setItem("input", "");
+    setInput("");
+  };
+  const handleUserInputChange = (value, event) => {
+    setUserInput(value);
   };
 
   const handleLanguageChange = (event) => {
@@ -38,18 +59,18 @@ const CompilerJudge = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setCodeLength(input.length);
+    if (languageId === 54) setCodeLength(input.length);
     const outputText = document.getElementById("output");
     outputText.innerHTML = "Creating Submission ...\n";
 
     const response = await fetch(
-      "https://judge0-extra-ce.p.rapidapi.com/submissions",
+      "https://judge0-ce.p.rapidapi.com/submissions",
       {
         method: "POST",
         headers: {
+          "x-rapidapi-host": "judge0-ce.p.rapidapi.com", // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
           "x-rapidapi-key":
             "86f0b2e820msh52efceface10086p15274ejsn68d810d61b61",
-          "x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com", // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
           "content-type": "application/json",
         },
         body: JSON.stringify({
@@ -75,13 +96,13 @@ const CompilerJudge = () => {
     ) {
       outputText.innerHTML = `Creating Submission ... \nSubmission Created ...\nChecking Submission Status\nstatus : ${jsonGetSolution.status.description}`;
       if (jsonResponse.token) {
-        let url = `https://judge0-extra-ce.p.rapidapi.com/submissions/${jsonResponse.token}?base64_encoded=true`;
+        let url = `https://judge0-ce.p.rapidapi.com/submissions/${jsonResponse.token}?base64_encoded=true`;
         const getSolution = await fetch(url, {
           method: "GET",
           headers: {
             "x-rapidapi-key":
               "86f0b2e820msh52efceface10086p15274ejsn68d810d61b61",
-            "x-rapidapi-host": "judge0-extra-ce.p.rapidapi.com",
+            "x-rapidapi-host": "judge0-ce.p.rapidapi.com",
             // Get yours for free at https://rapidapi.com/judge0-official/api/judge0-ce/
             "content-type": "application/json",
           },
@@ -128,18 +149,27 @@ const CompilerJudge = () => {
             </div>
             <div className="flex space-x-2">
               {user && (
-                <button
-                  type="submit"
-                  className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
-                  onClick={handleSubmit}
-                >
-                  Run
-                </button>
+                <>
+                  <button
+                    type="submit"
+                    className="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded"
+                    onClick={removeCode}
+                  >
+                    Remove code
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
+                    onClick={handleSubmit}
+                  >
+                    Run
+                  </button>
+                </>
               )}
             </div>
           </div>
           <div className=" bg-slate-300 rounded p-4">
-            <textarea
+            {/* <textarea
               required
               name="solution"
               id="source"
@@ -147,7 +177,16 @@ const CompilerJudge = () => {
               className="w-full h-[600px] p-2"
               value={input}
               placeholder="Enter your code"
-            ></textarea>
+            ></textarea> */}
+            <Editor
+              required
+              name="solution"
+              id="source"
+              value={input}
+              onChange={handleInputChange}
+              className="w-full h-[600px] p-2"
+              theme="light" // Editor theme (e.g., "light", "vs-dark")
+            />
           </div>
         </div>
 
@@ -159,11 +198,20 @@ const CompilerJudge = () => {
             >
               Input
             </label>
-            <textarea
+            {/* <textarea
               className="form-control w-full h-3/4 p-2 rounded border"
               id="input"
               onChange={handleUserInputChange}
-            ></textarea>
+            ></textarea> */}
+            <Editor
+              className="form-control w-full h-3/4 p-2 rounded border"
+              id="input"
+              options={{
+                lineNumbers: "off", // Disables line numbers
+              }}
+              onChange={handleUserInputChange}
+              theme="light" // Editor theme (e.g., "light", "vs-dark")
+            />
           </div>
           <div className="flex flex-col h-1/2">
             <label

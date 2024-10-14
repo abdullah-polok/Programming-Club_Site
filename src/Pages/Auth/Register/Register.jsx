@@ -74,12 +74,14 @@ const Register = () => {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col ">
         <div className="text-center ">
-          <h1 className="text-5xl font-bold">Register now!</h1>
+          <h1 className="text-3xl  lg:text-5xl font-bold text-[#7c8deb]">
+            Register now
+          </h1>
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl p-4">
+        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-slate-400 shadow-md p-4">
           <form onSubmit={handleRegister} className=" shadow-md">
-            <div className="form-control">
-              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+            <div className="form-control mt-4">
+              <label className="input input-bordered   w-full  flex items-center gap-2 ">
                 Full Name
                 <input
                   type="text"
@@ -90,8 +92,8 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div className="form-control mt-2">
-              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+            <div className="form-control mt-5">
+              <label className="input input-bordered   w-full  flex items-center gap-2">
                 Email
                 <input
                   type="email"
@@ -102,8 +104,8 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div className="form-control mt-2">
-              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+            <div className="form-control mt-5">
+              <label className="input input-bordered   w-full  flex items-center gap-2">
                 Password
                 <input
                   type="password"
@@ -114,8 +116,8 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div className="form-control mt-2">
-              <label className="input input-bordered  input-sm w-full max-w-xs flex items-center gap-2 text-xs">
+            <div className="form-control mt-5">
+              <label className="input input-bordered   w-full  flex items-center gap-2">
                 Confirm Password
                 <input
                   type="password"
@@ -126,15 +128,17 @@ const Register = () => {
                 />
               </label>
             </div>
-            <div className="form-control mt-6">
-              <button className="btn btn-primary">Register</button>
+            <div className="form-control mt-10">
+              <button className="btn text-white bg-[#7c8deb] text-lg">
+                Register
+              </button>
               <ToastContainer></ToastContainer>
             </div>
           </form>
 
-          <p className="p-5">
+          <p className="p-5 mt-10">
             Have a account?
-            <Link to={"/login"} className="text-blue-500">
+            <Link to={"/login"} className="text-[#7c8deb] font-semibold">
               Login
             </Link>
           </p>

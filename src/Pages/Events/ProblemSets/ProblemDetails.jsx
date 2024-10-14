@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CompilerJudge from "../../../Components/CompilerJudge/CompilerJudge";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
@@ -16,6 +16,9 @@ const ProblemDetails = () => {
   const { result } = outputCode;
   // console.log("inside code details", codeLength);
   const location = useLocation();
+  // useEffect(() => {
+  //   console.log(localStorage.getItem("input").length);
+  // });
   const {
     problemNumber,
     problemName,
