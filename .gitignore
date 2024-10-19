@@ -13,7 +13,7 @@ dist-ssr
 *.local
 src/Admin
 src/AdminRouter
-src/Firebase
+Firebase
 src/AuthProvider
 
 # Editor directories and files
