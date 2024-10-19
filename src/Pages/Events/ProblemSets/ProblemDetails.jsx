@@ -23,10 +23,10 @@ const ProblemDetails = () => {
     problemNumber,
     problemName,
     describeProblem,
-    innerInputProblem,
-    outerInputProblem,
+    inputProblem,
     outputProblem,
     inputCodeLength,
+    explanation,
   } = location?.state;
   const inputCodeLengthInt = parseInt(inputCodeLength);
   return (
@@ -37,34 +37,49 @@ const ProblemDetails = () => {
       {countdownDate ? (
         <div className="flex flex-col  p-2 border-2 border-primary rounded-lg">
           <div className="text-center text-xs md:text-lg lg:text-2xl font-bold">
-            <h1>
+            <h1 className="text-[#7c8deb] mb-2">
               {problemNumber}.{problemName}
             </h1>
           </div>
           <div className="text-xs md:text-base lg:text-lg">
             <p>{describeProblem}</p>
           </div>
-          <div className="text-xs md:text-base lg:text-lg mt-12">
-            <h1 className="text-lg font-semibold">Input</h1>
-            {outerInputProblem && (
-              <p className="text-xs md:text-sm lg:text:sm bg-slate-200 px-2">
-                {outerInputProblem}
-              </p>
-            )}
-            {innerInputProblem && (
-              <p className="text-xs md:text-sm lg:text:sm bg-slate-300 px-2">
-                {innerInputProblem}
-              </p>
-            )}
-          </div>
-          <div className="text-xs md:text-base lg:text-lg mt-12">
-            <h1 className="text-lg font-semibold">Output</h1>
-            <p className="text-xs md:text-sm lg:text:sm  bg-slate-300 px-2">
-              {outputProblem}
-            </p>
-            <div className="bg-green-400 rounded-lg w-24 mt-4">
-              {isPassed && <p className="text-center">Passed</p>}
+          {/* Input and output grid */}
+          <div className="flex w-full gap-2">
+            <div className="text-xs md:text-base lg:text-lg mt-12 flex-1">
+              <h1 className="text-lg font-semibold text-center text-[#7c8deb] mb-2">
+                Sample Input
+              </h1>
+              <textarea
+                readOnly
+                className="text-xs  md:text-sm lg:text-base rounded-lg border-2 border-[#7c8deb] bg-indigo-50 p-2 focus:outline-none overflow-hidden w-full h-32 resize-none"
+                value={inputProblem}
+              ></textarea>
             </div>
+            <div className="text-xs text-center md:text-base lg:text-lg mt-12 flex-1">
+              <h1 className="text-lg font-semibold text-[#7c8deb] mb-2">
+                Sample Output
+              </h1>
+              <textarea
+                readOnly
+                className="text-xs  md:text-sm lg:text-base rounded-lg border-2 border-[#7c8deb] bg-indigo-50 p-2 focus:outline-none overflow-hidden w-full h-32 resize-none"
+                value={outputProblem}
+              ></textarea>
+            </div>
+          </div>
+          <div>
+            {explanation && (
+              <div className="text-xs text-center md:text-base lg:text-lg mt-12 flex-1">
+                <h1 className="text-lg font-semibold text-[#7c8deb] mb-2">
+                  Explanation
+                </h1>
+                <textarea
+                  readOnly
+                  className="text-xs  md:text-sm lg:text-base rounded-lg border-2 border-[#7c8deb] bg-indigo-50 p-2 focus:outline-none overflow-hidden w-full h-32 resize-none"
+                  value={explanation}
+                ></textarea>
+              </div>
+            )}
           </div>
           <div className="mt-10">
             <CompilerJudge></CompilerJudge>
@@ -80,7 +95,7 @@ const ProblemDetails = () => {
                   result
                 )
               }
-              className="btn btn-primary mx-2"
+              className="btn bg-[#7c8deb] text-white text-lg mx-2"
             >
               Submit code
             </button>

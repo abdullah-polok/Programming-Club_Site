@@ -23,7 +23,7 @@ const CountDownTime = () => {
 
   if (!countdownDate) {
     return (
-      <p className="flex justify-center gap-1 mb-4 text-red-500 font-bold border-2 border-purple-300 p-2 rounded-xl">
+      <p className="flex justify-center gap-1 mb-4 text-red-500 font-bold border-2 border-[#7c8deb] p-2 rounded-xl mt-4">
         Contest has ended!
       </p>
     );
@@ -35,7 +35,7 @@ const CountDownTime = () => {
         renderer={({ hours, minutes, seconds, completed }) => {
           if (completed) {
             return (
-              <span className="flex justify-center gap-1 mb-4 text-red-500 font-bold border-2 border-purple-300 p-2 rounded-xl">
+              <span className="flex justify-center gap-1 mb-4 text-red-500 font-bold border-2border-[#7c8deb] p-2 rounded-xl mt-4">
                 Contest has ended!
               </span>
             );
@@ -43,15 +43,15 @@ const CountDownTime = () => {
             return (
               <div
                 onClick={handleTime(hours, minutes, seconds)}
-                className="flex justify-center gap-1 mb-4"
+                className="flex justify-center gap-1 mb-4 mt-4"
               >
-                <div className="text-red-500 font-bold border-2 border-purple-300 p-2 rounded-xl">
+                <div className="text-red-500 font-bold border-2 border-[#7c8deb] py-2 px-4 rounded-xl">
                   {hours}h
                 </div>
-                <div className="text-red-500 font-bold border-2 border-purple-300 p-2 rounded-xl">
+                <div className="text-red-500 font-bold border-2 border-[#7c8deb] py-2 px-4 rounded-xl">
                   {minutes}m
                 </div>
-                <div className="text-red-500 font-bold border-2 border-purple-300 p-2 rounded-xl">
+                <div className="text-red-500 font-bold border-2 border-[#7c8deb] py-2 px-4 rounded-xl">
                   {seconds}s
                 </div>
               </div>

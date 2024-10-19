@@ -7,6 +7,7 @@ import { BsFillSignIntersectionFill } from "react-icons/bs";
 const Profile = () => {
   const { profileData, user } = useContext(AuthContext);
   const { name, year, ukhemail, faculty } = profileData;
+  console.log(user.photoURL);
   return (
     <div className="min-h-screen">
       <div className="divider divider-primary text-center font-semibold text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">

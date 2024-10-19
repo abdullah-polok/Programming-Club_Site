@@ -59,7 +59,7 @@ const CompilerJudge = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (languageId === 54) setCodeLength(input.length);
+    setCodeLength(input.length);
     const outputText = document.getElementById("output");
     outputText.innerHTML = "Creating Submission ...\n";
 
@@ -135,7 +135,7 @@ const CompilerJudge = () => {
     <div>
       <div className="flex flex-col md:flex-row m-3">
         <div className="w-full md:w-1/2 mb-2">
-          <div className="flex justify-between mb-2 bg-slate-300 rounded p-2">
+          <div className="flex justify-between mb-2 bg-indigo-50 rounded p-2">
             <div className="w-1/4">
               <select
                 value={languageId}
@@ -159,7 +159,7 @@ const CompilerJudge = () => {
                   </button>
                   <button
                     type="submit"
-                    className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded"
+                    className="bg-[#7c8deb] hover:bg-blue-400 text-white py-2 px-4 rounded"
                     onClick={handleSubmit}
                   >
                     Run
@@ -168,7 +168,7 @@ const CompilerJudge = () => {
               )}
             </div>
           </div>
-          <div className=" bg-slate-300 rounded p-4">
+          <div className=" bg-indigo-50 rounded p-4">
             {/* <textarea
               required
               name="solution"
@@ -190,11 +190,11 @@ const CompilerJudge = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 flex flex-col bg-slate-300 rounded p-4 md:ml-3">
+        <div className="w-full md:w-1/2 flex flex-col bg-indigo-50 rounded p-4 md:ml-3">
           <div className="flex flex-col h-1/2">
             <label
               htmlFor="input"
-              className=" bg-green-600 text-center text-white mb-2 rounded-sm"
+              className=" bg-[#7c8deb] text-center text-white mb-2 rounded"
             >
               Input
             </label>
@@ -216,7 +216,7 @@ const CompilerJudge = () => {
           <div className="flex flex-col h-1/2">
             <label
               htmlFor="output"
-              className="bg-green-600 text-center text-white mb-2 rounded-sm"
+              className="bg-[#7c8deb] text-center text-white mb-2 rounded"
             >
               Output
             </label>

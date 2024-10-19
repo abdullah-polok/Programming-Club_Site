@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Banner = () => {
   return (
     <LazyLoadComponent>
-      <div className=" mt-4 heroSection flex flex-col items-center justify-center p-5 bg-[url('/src/assets/images/banner1-overlay.png')] h-fit md:h-screen lg:h-screen bg-cover bg-center ">
+      <div className=" mt-4 heroSection flex flex-col items-center justify-center p-5 bg-[url('/src/assets/images/banner1-overlay.webp')] h-fit md:h-screen lg:h-screen bg-cover bg-center ">
         {/* <div className="absolute top-1 inset-0 bg-black opacity-35 h-screen rounded"></div> */}
 
         <div className="w-full  mb-10 mt-4">

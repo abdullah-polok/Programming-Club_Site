@@ -21,6 +21,7 @@ import {
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import "react-toastify/dist/ReactToastify.css";
+import { stringify } from "postcss";
 export const AuthContext = createContext(null);
 
 ////Main Project
@@ -41,8 +42,7 @@ const AuthProvider = ({ children }) => {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [timeDuration, setTimeDuration] = useState(null);
-  const [isPassed, setPassed] = useState(false);
-
+  const [allScores, setAllScores] = useState([]);
   ////extra login
   const provider = new GoogleAuthProvider();
 
@@ -94,7 +94,11 @@ const AuthProvider = ({ children }) => {
     querySnapshot.forEach(async (documentSnapshot) => {
       try {
         await deleteDoc(doc(db, "contestTimeSet", documentSnapshot.id));
-        console.log(`Deleted document with ID: ${documentSnapshot.id}`);
+        Swal.fire({
+          title: "Great!",
+          text: "Contest timer reset successfully",
+          icon: "success",
+        });
       } catch (error) {
         console.error("Error deleting document: ", error);
       }
@@ -108,25 +112,34 @@ const AuthProvider = ({ children }) => {
     console.log("Finished contest");
     let firstscores = parseFloat(localStorage.getItem("firstscores"));
     let secondscores = parseFloat(localStorage.getItem("secondscores"));
-    // let thirdscores = parseInt(localStorage.getItem("thirdscores"));
-    // let forthscores = parseInt(localStorage.getItem("forthscores"));
+    let thirdscores = parseFloat(localStorage.getItem("thirdscores"));
 
-    if (firstscores === NaN || firstscores === null) firstscores = 0;
-    if (secondscores === NaN || secondscores === null) secondscores = 0;
-    // if (thirdscores === NaN || thirdscores === null) thirdscores = 0;
-    // if (forthscores === NaN || forthscores === null) forthscores = 0;
-    console.log(firstscores, secondscores);
-    const avergerScore = (firstscores + secondscores) / 2;
-    console.log(avergerScore);
+    if (localStorage.getItem("firstscores") === null) firstscores = 0;
+
+    if (localStorage.getItem("secondscores") === null) secondscores = 0;
+
+    if (localStorage.getItem("thirdscores") === null) thirdscores = 0;
+
+    // console.log(firstscores, secondscores, thirdscores);
+
+    let averageScore = (firstscores + secondscores + thirdscores) / 3;
+    // console.log(avergerScore);
+    averageScore = averageScore.toFixed(3);
     const scoreInfo = {
       name: profileData.name,
       email: profileData.email,
-      avergerScore: avergerScore,
+      averageScore: averageScore,
       faculty: profileData.faculty,
     };
-    const docRef = await addDoc(collection(db, "participantInfo"), {
-      scoreInfo,
-    });
+    // const docRef = await addDoc(collection(db, "participantInfo"), {
+    //   scoreInfo,
+    // });
+    const docRef = doc(
+      collection(db, "participantInfo"),
+      JSON.stringify(averageScore)
+    );
+    await setDoc(docRef, { data: scoreInfo });
+
     Swal.fire({
       title: "Great!",
       text: "Your problems submited successfully",
@@ -136,9 +149,37 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("language_Id");
     localStorage.removeItem("firstscores");
     localStorage.removeItem("secondscores");
+    localStorage.removeItem("thirdscores");
   };
 
   // console.log(localStorage.getItem("firstscores"));
+
+  //// Start Leadboard section
+  const getLeaderboardScore = async () => {
+    try {
+      // Reference to the 'problems' collection
+      const participantInfos = collection(db, "participantInfo");
+
+      // Get all documents in the 'problems' collection
+      const querySnapshot = await getDocs(participantInfos);
+
+      // Iterate over each document in the collection
+      const scores = querySnapshot.docs.map((doc) => ({
+        id: doc.id, // Document ID
+        ...doc.data(), // Document data
+      }));
+      // Log all problems data
+      // console.log("", scores);
+      // cons
+      setAllScores(scores);
+      return scores; // Return problems array if needed
+    } catch (error) {
+      console.log("Error fetching products:", error);
+    }
+  };
+
+  /////////////////////////
+
   //////Hanlde Score create///////
 
   const CreateProblemScore = (
@@ -152,8 +193,22 @@ const AuthProvider = ({ children }) => {
     console.log("timeTaken", timeTaken);
     setProblemStatus(true);
     const problemNumber = parseInt(problemNum);
-    const outputProblemIn = parseInt(outputProblem);
+    const outputProblemIn = parseInt(
+      outputProblem[outputProblem.indexOf(result)]
+    );
     const resultIn = parseInt(result);
+
+    // console.log(
+    //   "resultString:",
+    //   outputProblem[outputProblem.indexOf(result)] === result
+    // );
+    // console.log(
+    //   "resultInt:",
+    // ===
+    //     parseInt(result)
+    // );
+
+    console.log(codeLength, inputCodeLengthInt, outputProblem, resultIn);
 
     if (codeLength > inputCodeLengthInt && outputProblemIn === resultIn) {
       if (problemNumber === 1) {
@@ -163,17 +218,13 @@ const AuthProvider = ({ children }) => {
           firstscores = 0;
         }
 
-        localStorage.setItem(
-          "firstscores",
-          JSON.stringify({ firstscores: firstscores, status: "passed" })
-        );
-        console.log(firstscores);
+        localStorage.setItem("firstscores", firstscores);
+        // console.log(firstscores);
         Swal.fire({
           title: "Good job!",
-          text: "Your first Probelem score added",
+          text: "Your first problem algorithm accepted",
           icon: "success",
         });
-        if (localStorage.getItem("firstscores")) setPassed(true);
       } else if (problemNumber === 2) {
         let secondscores =
           200 * (1 - (timeDuration - timeTaken) / timeDuration);
@@ -181,17 +232,14 @@ const AuthProvider = ({ children }) => {
         if (secondscores === 0 || secondscores === null) {
           secondscores = 0;
         }
-        localStorage.setItem(
-          "secondscores",
-          JSON.stringify({ secondscores: secondscores, status: "passed" })
-        );
-        console.log(secondscores);
+        localStorage.setItem("secondscores", secondscores);
+        // // JSON.stringify({ "secondscores", secondscores})
+        // console.log(secondscores);
         Swal.fire({
           title: "Good job!",
-          text: "Your second Probelem score added",
+          text: "Your second problem algorithm accepted",
           icon: "success",
         });
-        if (localStorage.getItem("secondscores")) setPassed(true);
       } else if (problemNumber === 3) {
         let thirdscores = 300 * (1 - (timeDuration - timeTaken) / timeDuration);
 
@@ -201,24 +249,31 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("thirdscores", thirdscores);
         Swal.fire({
           title: "Good job!",
-          text: "Your third Probelem score added",
+          text: "Your third problem algorithm accepted",
           icon: "success",
         });
         if (localStorage.getItem("thirdscores")) setPassed(true);
-      } else if (problemNumber === 4) {
-        let forthscores = 400 * (1 - (timeDuration - timeTaken) / timeDuration);
-
-        if (forthscores === 0 || forthscores === null) {
-          forthscores = 0;
-        }
-        localStorage.setItem("forthscores", forthscores);
-        Swal.fire({
-          title: "Good job!",
-          text: "Your forth Probelem score added",
-          icon: "success",
-        });
-        if (localStorage.getItem("forthscores")) setPassed(true);
       }
+      //  else if (problemNumber === 4) {
+      //   let forthscores = 400 * (1 - (timeDuration - timeTaken) / timeDuration);
+
+      //   if (forthscores === 0 || forthscores === null) {
+      //     forthscores = 0;
+      //   }
+      //   localStorage.setItem("forthscores", forthscores);
+      //   Swal.fire({
+      //     title: "Good job!",
+      //     text: "Your forth Probelem score added",
+      //     icon: "success",
+      //   });
+      //   if (localStorage.getItem("forthscores")) setPassed(true);
+      // }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Your problem's algorithm not accepted ",
+      });
     }
   };
 
@@ -226,36 +281,35 @@ const AuthProvider = ({ children }) => {
 
   const handleCreateProblem = async () => {
     setLoading(true);
-    console.log("Problem inside API", createProblem);
     try {
       // Destructure email and password from userData
       const {
         problemNumber,
         problemName,
         describeProblem,
-        outerInputProblem,
-        innerInputProblem,
+        inputProblem,
         inputCodeLength,
         outputProblem,
-        date,
+        explanation,
       } = createProblem;
 
       const dataToStore = {
         problemNumber,
         problemName,
         describeProblem,
-        outerInputProblem,
-        innerInputProblem,
+        inputProblem,
         inputCodeLength,
         outputProblem,
-        date,
+        explanation,
       };
-      console.log("Data Stored", dataToStore);
-      const docRef = await addDoc(collection(db, "problemsData"), {
-        dataToStore,
-      });
-
+      const docRef = doc(collection(db, "problemsData"), problemNumber);
+      await setDoc(docRef, { data: dataToStore });
       setCheckStoredProblem(true);
+      Swal.fire({
+        title: "Great!",
+        text: "Probelem added successfully",
+        icon: "success",
+      });
     } catch (err) {
       console.log("Error in Storing", err);
     } finally {
@@ -280,7 +334,6 @@ const AuthProvider = ({ children }) => {
       // Log all problems data
       // console.log(problems);
       setProblemCollections(problems);
-
       return problems; // Return problems array if needed
     } catch (error) {
       console.log("Error fetching products:", error);
@@ -369,6 +422,7 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       handleGetProblem();
+      getLeaderboardScore();
       setStudentData({});
       setLoading(false);
     });
@@ -424,9 +478,9 @@ const AuthProvider = ({ children }) => {
     timeDuration,
     setTimeDuration,
     resetTimer,
-    isPassed,
+    allScores,
   };
-
+  // console.log(user);
   return (
     <AuthContext.Provider value={userInfo}>{children}</AuthContext.Provider>
   );

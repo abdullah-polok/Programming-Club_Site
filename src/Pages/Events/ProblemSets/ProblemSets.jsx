@@ -9,7 +9,6 @@ import "sweetalert2/src/sweetalert2.scss";
 const ProblemSets = () => {
   const { problemCollections, handleFinishedContest, countdownDate } =
     useContext(AuthContext);
-
   const navigate = useNavigate();
   const handleFinished = () => {
     Swal.fire({
@@ -34,13 +33,13 @@ const ProblemSets = () => {
   };
   return (
     <>
-      <div>
+      <div className="min-h-screen">
         <div>
           <CountDownTime></CountDownTime>
         </div>
         {countdownDate ? (
           <div>
-            <div className="flex justify-between border-2 rounded-lg p-2">
+            <div className="flex justify-between border-2 border-[#7c8deb] rounded-lg p-2">
               <h1>No</h1>
               <h1>Problem Name</h1>
               <h1>Status</h1>
@@ -49,13 +48,13 @@ const ProblemSets = () => {
               <PerProblem
                 index={index + 1}
                 key={index}
-                perProblem={perProblem.dataToStore}
+                perProblem={perProblem.data}
               ></PerProblem>
             ))}
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-10">
               <button
                 onClick={handleFinished}
-                className=" btn btn-warning mt-4"
+                className=" btn bg-[#7c8deb] text-white text-lg mt-4"
               >
                 Finished
               </button>
