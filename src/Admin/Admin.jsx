@@ -56,10 +56,19 @@ const Admin = () => {
       <div className="divider divider-primary text-center font-semibold text-2xl md:text-2xl lg:text-4xl text-[#7c8deb]">
         Admin Page
       </div>
-      <div className="collapse collapse-arrow bg-indigo-50">
+      <div className="collapse collapse-arrow bg-indigo-50 mt-4">
         <input type="radio" name="my-accordion-2" />
         <div className="collapse-title text-xl font-medium">
-          <h1 className="text-sm md:text-lg lg:text-2xl text-center font-semibold text-[#7c8deb]">
+          <h1 className="text-sm md:text-lg lg:text-2xl font-semibold text-[#7c8deb]">
+            Get Leaderboard info
+          </h1>
+        </div>
+        <div className="collapse-content"></div>
+      </div>
+      <div className="collapse collapse-arrow bg-indigo-50 mt-4">
+        <input type="radio" name="my-accordion-2" />
+        <div className="collapse-title text-xl font-medium">
+          <h1 className="text-sm md:text-lg lg:text-2xl font-semibold text-[#7c8deb]">
             Create a problem
           </h1>
         </div>
